@@ -1,4 +1,21 @@
+footer {
+  display: flex;
+  place-content: center;
+  place-items: center;
+  gap: 8px;
+  margin: 25px 0px;
+}
+
 .footer-text {
   display: block;
   margin-bottom: 5px;
+}
+
+.link {
+  color: #000000;
+  text-decoration: none;
+}
+
+.link:hover {
+  color: #41a5df;
 }

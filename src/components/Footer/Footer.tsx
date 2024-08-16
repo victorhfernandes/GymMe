@@ -1,4 +1,3 @@
-import Anchor from "../Anchor/Anchor";
 import Separator from "../Separator/Separator";
 import { Link } from "react-router-dom";
 import "./Footer.css";
@@ -9,17 +8,11 @@ const Footer = () => {
       <Separator />
 
       <footer>
-        <span className="footer-text">
-          Made by{" "}
-          <Anchor href="https://letterboxd.com/Victorh8010/">
-            Victor Hugo Fernandes
-          </Anchor>
-        </span>
-        <Link className="anchor" to="/">
+        <Link className="link" to="/">
           Home
         </Link>{" "}
         |{" "}
-        <Link className="anchor" to="/about">
+        <Link className="link" to="/about">
           About
         </Link>{" "}
       </footer>

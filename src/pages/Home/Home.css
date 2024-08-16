@@ -1,35 +1,46 @@
 .containner-flex {
   display: flex;
+  box-sizing: border-box;
+}
+
+input {
+  all: unset;
+  appearance: auto;
 }
 
 @media (max-width: 900px) {
   .containner-flex {
     flex-direction: column;
   }
+  .right-div {
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
 }
 
 .left-div {
   display: flex;
   flex-direction: column;
-  flex: 1;
-  background-color: #fff;
+  flex: 1.2;
+  background-color: #f0f0f0;
   align-content: center;
   justify-content: center;
   align-items: center;
   justify-items: center;
 }
 
-.logo {
-  width: 30%;
-  height: 30%;
-  border-radius: 50%;
+.gymme {
+  width: 25%;
+}
+
+.gym {
+  width: 100%;
 }
 
 .right-div {
   display: flex;
-  flex: 1;
-  background-color: #4bbeff;
-  height: 100vh;
+  flex: 0.8;
+  background-color: #f0f0f0;
   place-content: center;
   place-items: center;
 }
@@ -37,25 +48,39 @@
 .login-div {
   display: flex;
   flex-direction: column;
-  place-content: center;
-  place-items: center;
   width: fit-content;
-  height: 50%;
+  padding: 30px 15px;
   border-radius: 8px;
-  background-color: #fff;
+  background-color: #f0f0f0;
+  border: 1px solid #41a5df;
+  box-shadow: -25px 25px 0px #41a5df, 25px -25px 0px #41a5df;
 }
 
-.input-login,
-.btn-login {
-  height: 25px;
-  width: 70%;
+.input-login {
+  border: 1px solid #000000;
+  background-color: #f0f0f0;
+  padding: 7px 10px;
   border-radius: 5px;
-  border-width: 1px;
+  font-size: 18px;
+  color: black;
   margin-bottom: 5px;
-  margin: 5px 50px;
 }
 
 .btn-login {
-  background-color: #4bbeff;
+  background-color: #41a5df;
+  padding: 5px 9px;
+  border-radius: 5px;
+  font-size: 18px;
+  color: #f0f0f0;
+  border: 1px solid #41a5df;
   margin-top: 20px;
+  font-weight: 600;
+}
+
+.btn-login:hover {
+  opacity: 0.8;
+}
+
+.btn-login:active {
+  opacity: 1;
 }
