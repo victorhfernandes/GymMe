@@ -1,6 +1,13 @@
-.containner-flex {
+@media (max-width: 900px) {
+  .containner {
+    flex-direction: column;
+  }
+}
+
+.containner {
   display: flex;
   box-sizing: border-box;
+  padding: 2%;
 }
 
 input {
@@ -8,36 +15,43 @@ input {
   appearance: auto;
 }
 
-@media (max-width: 900px) {
-  .containner-flex {
-    flex-direction: column;
-  }
-  .right-div {
-    margin-top: 30px;
-    margin-bottom: 30px;
-  }
-}
-
-.left-div {
+.left {
   display: flex;
   flex-direction: column;
   flex: 1.2;
   background-color: #f0f0f0;
-  align-content: center;
-  justify-content: center;
   align-items: center;
-  justify-items: center;
 }
 
-.gymme {
-  width: 25%;
+.info-div {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
 }
 
-.gym {
-  width: 100%;
+.title {
+  font-size: 50px;
 }
 
-.right-div {
+.subtitle {
+  font-size: 30px;
+}
+
+.text {
+  font-size: 20px;
+}
+
+.margin {
+  margin-bottom: 15px;
+}
+
+.logo {
+  width: 50%;
+  border-radius: 50%;
+  box-shadow: 15px 30px 50px #00000050;
+}
+
+.right {
   display: flex;
   flex: 0.8;
   background-color: #f0f0f0;
@@ -48,12 +62,8 @@ input {
 .login-div {
   display: flex;
   flex-direction: column;
-  width: fit-content;
-  padding: 30px 15px;
   border-radius: 8px;
   background-color: #f0f0f0;
-  border: 1px solid #41a5df;
-  box-shadow: -25px 25px 0px #41a5df, 25px -25px 0px #41a5df;
 }
 
 .input-login {

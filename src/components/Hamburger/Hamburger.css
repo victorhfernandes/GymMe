@@ -1,0 +1,13 @@
+@media (min-width: 901px) {
+  .hamburger {
+    display: none;
+  }
+}
+
+.bar {
+  display: block;
+  width: 25px;
+  height: 3px;
+  margin: 5px auto;
+  background-color: #101010;
+}
