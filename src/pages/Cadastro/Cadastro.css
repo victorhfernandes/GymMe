@@ -1,0 +1,14 @@
+.containner-cadastro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.input-cadastro {
+  border: 1px solid black;
+}
+
+.forms-cadastro {
+  display: flex;
+  flex-direction: column;
+}
