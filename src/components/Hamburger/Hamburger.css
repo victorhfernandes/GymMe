@@ -1,4 +1,4 @@
-@media (min-width: 901px) {
+@media (min-width: 56.3125em /*901px*/) {
   .hamburger {
     display: none;
   }
@@ -6,8 +6,8 @@
 
 .bar {
   display: block;
-  width: 25px;
-  height: 3px;
-  margin: 5px auto;
+  width: 1.8rem;
+  height: 0.28rem;
+  margin: 0.4rem 1rem;
   background-color: #101010;
 }
