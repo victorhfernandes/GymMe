@@ -9,12 +9,20 @@ const Footer = () => {
 
       <footer>
         <Link className="link" to="/">
-          Home
-        </Link>{" "}
-        |{" "}
-        <Link className="link" to="/about">
-          About
-        </Link>{" "}
+          Inicio
+        </Link>
+        |
+        <Link className="link" to="/instrutores">
+          Instrutores
+        </Link>
+        |
+        <Link className="link" to="/desenvolvedores">
+          Desenvolvedores
+        </Link>
+        |
+        <Link className="link" to="/cadastro">
+          Cadastro
+        </Link>
       </footer>
     </>
   );
