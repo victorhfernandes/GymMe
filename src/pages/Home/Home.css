@@ -40,9 +40,7 @@ input {
 }
 
 .logo {
-  width: 50%;
-  border-radius: 50%;
-  box-shadow: 1rem 2rem 3rem #00000050;
+  width: 75%;
 }
 
 .right {
@@ -96,9 +94,5 @@ button:active {
 
   .info-div {
     width: 95%;
-  }
-
-  .right {
-    display: none;
   }
 }

@@ -1,5 +1,5 @@
 import "./Home.css";
-import logo from "../../assets/logo.jpg";
+import logo from "../../assets/gymme braço.png";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
