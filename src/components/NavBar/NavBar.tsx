@@ -3,17 +3,17 @@ import { NavLink } from "react-router-dom";
 import "./NavBar.css";
 import Hamburguer from "../Hamburger/Hamburger";
 
-const NavBar = () => {
+function NavBar() {
   const [showNavLinks, setShowNavLinks] = useState(true);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-  const handleHamburger = () => {
+  function handleHamburger() {
     setShowNavLinks(!showNavLinks);
-  };
+  }
 
-  const updateWindowWidth = () => {
+  function updateWindowWidth() {
     setWindowWidth(window.innerWidth);
-  };
+  }
 
   useEffect(() => {
     window.addEventListener("resize", updateWindowWidth);
@@ -58,6 +58,6 @@ const NavBar = () => {
       </div>
     </>
   );
-};
+}
 
 export default NavBar;

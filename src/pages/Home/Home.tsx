@@ -3,14 +3,14 @@ import logo from "../../assets/gymme braço.png";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-const Home = () => {
+function Home() {
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
 
-  const storeData = () => {
+  function storeData() {
     sessionStorage.setItem("nome", nome);
     sessionStorage.setItem("email", email);
-  };
+  }
 
   return (
     <>
@@ -53,6 +53,6 @@ const Home = () => {
       </div>
     </>
   );
-};
+}
 
 export default Home;

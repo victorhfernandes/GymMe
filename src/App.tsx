@@ -6,7 +6,7 @@ import NavBar from "./components/NavBar/NavBar";
 import Footer from "./components/Footer/Footer";
 import "./App.css";
 
-const App = () => {
+function App() {
   return (
     <>
       <NavBar />
@@ -18,6 +18,6 @@ const App = () => {
       <Footer />
     </>
   );
-};
+}
 
 export default App;

@@ -1,7 +1,7 @@
 import { FormEvent, useState } from "react";
 import "./Cadastro.css";
 
-const Cadastro = () => {
+function Cadastro() {
   const [nome, setNome] = useState(sessionStorage.getItem("nome") || "");
   const [email, setEmail] = useState(sessionStorage.getItem("email") || "");
   const [categoria, setCategoria] = useState("instrutor");
@@ -9,7 +9,7 @@ const Cadastro = () => {
   const [celular, setCelular] = useState("");
   const [cref, setCref] = useState("");
 
-  const handleSubmit = async (event: FormEvent) => {
+  async function handleSubmit(event: FormEvent) {
     event.preventDefault(); // prevent page refresh
 
     //solução temporaria
@@ -48,7 +48,7 @@ const Cadastro = () => {
     console.log(responseJson);
     alert("Cadastro feito com sucesso!");
     //
-  };
+  }
 
   return (
     <>
@@ -132,6 +132,6 @@ const Cadastro = () => {
       </div>
     </>
   );
-};
+}
 
 export default Cadastro;

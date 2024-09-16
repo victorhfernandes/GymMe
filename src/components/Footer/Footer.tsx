@@ -2,7 +2,7 @@ import Separator from "../Separator/Separator";
 import { Link } from "react-router-dom";
 import "./Footer.css";
 
-const Footer = () => {
+function Footer() {
   return (
     <>
       <Separator />
@@ -26,5 +26,5 @@ const Footer = () => {
       </footer>
     </>
   );
-};
+}
 export default Footer;

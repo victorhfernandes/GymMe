@@ -1,6 +1,6 @@
 import "./Hamburger.css";
 
-const Hamburguer = () => {
+function Hamburguer() {
   return (
     <div className="hamburger">
       <span className="bar"></span>
@@ -8,6 +8,6 @@ const Hamburguer = () => {
       <span className="bar"></span>
     </div>
   );
-};
+}
 
 export default Hamburguer;
