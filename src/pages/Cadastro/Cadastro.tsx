@@ -1,4 +1,5 @@
 import { FormEvent, useState } from "react";
+import InputText from "../../components/InputText/InputText";
 import "./Cadastro.css";
 
 function Cadastro() {
@@ -78,55 +79,40 @@ function Cadastro() {
           </label>
         </div>
         <form className="forms-cadastro" onSubmit={handleSubmit}>
-          <input
-            className="radio"
-            type="text"
-            placeholder="Nome"
-            onChange={(event) => setNome(event.target.value)}
-            value={nome}
-            autoComplete="on"
-            name="nome"
+          <InputText
+            values={[
+              {
+                type: "text",
+                placeholder: "Nome",
+                value: nome,
+                setFunc: setNome,
+              },
+              {
+                type: "email",
+                placeholder: "Email",
+                value: email,
+                setFunc: setEmail,
+              },
+              {
+                type: "password",
+                placeholder: "Senha",
+                value: senha,
+                setFunc: setSenha,
+              },
+              {
+                type: "text",
+                placeholder: "Celular",
+                value: celular,
+                setFunc: setCelular,
+              },
+              {
+                type: "text",
+                placeholder: "CREF",
+                value: cref,
+                setFunc: setCref,
+              },
+            ]}
           />
-
-          <input
-            className="input-cadastro"
-            type="email"
-            placeholder="Email"
-            onChange={(event) => setEmail(event.target.value)}
-            value={email}
-            autoComplete="on"
-            name="email"
-          />
-          <input
-            className="input-cadastro"
-            type="password"
-            placeholder="Senha"
-            onChange={(event) => setSenha(event.target.value)}
-            value={senha}
-            autoComplete="on"
-            name="senha"
-          />
-
-          <input
-            className="input-cadastro"
-            type="text"
-            placeholder="Celular"
-            onChange={(event) => setCelular(event.target.value)}
-            value={celular}
-            autoComplete="on"
-            name="celular"
-          />
-
-          <input
-            className="input-cadastro"
-            type="text"
-            placeholder="CREF"
-            onChange={(event) => setCref(event.target.value)}
-            value={cref}
-            autoComplete="on"
-            name="cref"
-          />
-
           <button type="submit">Enviar</button>
         </form>
       </div>
