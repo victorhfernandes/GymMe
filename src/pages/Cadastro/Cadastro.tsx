@@ -1,15 +1,7 @@
-import { FormEvent, useState } from "react";
-import InputText from "../../components/InputText/InputText";
 import "./Cadastro.css";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 
 function Cadastro() {
-  const [nome, setNome] = useState(sessionStorage.getItem("nome") || "");
-  const [email, setEmail] = useState(sessionStorage.getItem("email") || "");
-  const [categoria, setCategoria] = useState("instrutor");
-  const [senha, setSenha] = useState("");
-  const [celular, setCelular] = useState("");
-  const [cref, setCref] = useState("");
   const { register, handleSubmit } = useForm();
 
   function onSubmit(data: any) {
@@ -40,58 +32,39 @@ function Cadastro() {
     <>
       <div className="containner-cadastro">
         <h1 className="title">Cadastro</h1>
-        <div className="radio-flex">
-          <label className="label-cadastro">
-            <input
-              type="radio"
-              name="categoria"
-              value="instrutor"
-              checked={"instrutor" === categoria}
-              onChange={(event) => setCategoria(event.target.value)}
-            />
-            Instrutor
-          </label>
-
-          <label className="label-cadastro">
-            <input
-              type="radio"
-              name="categoria"
-              value="aluno"
-              checked={"aluno" === categoria}
-              onChange={(event) => setCategoria(event.target.value)}
-            />
-            Aluno
-          </label>
-        </div>
         <form className="forms-cadastro" onSubmit={handleSubmit(onSubmit)}>
-          <InputText
-            values={[
-              {
-                type: "text",
-                placeholder: "Nome",
-                register: register,
-              },
-              {
-                type: "text",
-                placeholder: "Email",
-                register: register,
-              },
-              {
-                type: "password",
-                placeholder: "Senha",
-                register: register,
-              },
-              {
-                type: "text",
-                placeholder: "Celular",
-                register: register,
-              },
-              {
-                type: "text",
-                placeholder: "CREF",
-                register: register,
-              },
-            ]}
+          <div className="radio-flex">
+            <label className="label-cadastro">
+              <input
+                {...register("Categoria")}
+                type="radio"
+                value="instrutor"
+              />
+              Instrutor
+            </label>
+            <label className="label-cadastro">
+              <input {...register("Categoria")} type="radio" value="aluno" />
+              Aluno
+            </label>
+          </div>
+          <input
+            {...register("nome")}
+            type="text"
+            placeholder="Nome"
+            autoComplete="on"
+          />
+          <input
+            {...register("email")}
+            type="email"
+            placeholder="Email"
+            autoComplete="on"
+          />
+          <input {...register("senha")} type="password" placeholder="Senha" />
+          <input
+            {...register("celular")}
+            type="text"
+            placeholder="Celular"
+            autoComplete="on"
           />
           <button type="submit">Enviar</button>
         </form>
