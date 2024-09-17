@@ -1,6 +1,7 @@
 import { FormEvent, useState } from "react";
 import InputText from "../../components/InputText/InputText";
 import "./Cadastro.css";
+import { useForm, SubmitHandler } from "react-hook-form";
 
 function Cadastro() {
   const [nome, setNome] = useState(sessionStorage.getItem("nome") || "");
@@ -9,38 +10,22 @@ function Cadastro() {
   const [senha, setSenha] = useState("");
   const [celular, setCelular] = useState("");
   const [cref, setCref] = useState("");
+  const { register, handleSubmit } = useForm();
 
-  async function handleSubmit(event: FormEvent) {
+  function onSubmit(data: any) {
+    console.log(data);
+  }
+
+  /*async function handleSubmit(event: FormEvent) {
     event.preventDefault(); // prevent page refresh
-
-    //solução temporaria
-    if (
-      nome === "" ||
-      email === "" ||
-      senha === "" ||
-      celular === "" ||
-      cref === ""
-    ) {
-      alert("Prencha todos os campos!");
-      throw new Error("Prencha todos os campos!");
-    }
-    //
     const URL = "http://localhost:3000/api/instrutor";
-
-    const cadastro = {
-      nm_instrutor: nome,
-      email_instrutor: email,
-      senha_instrutor: senha,
-      cel_instrutor: celular,
-      cref_instrutor: cref,
-    };
 
     const response = await fetch(URL, {
       headers: {
         "Content-Type": "application/json",
       },
       method: "POST",
-      body: JSON.stringify(cadastro),
+      body: JSON.stringify("teste"),
     });
 
     const responseJson = await response.json();
@@ -49,7 +34,7 @@ function Cadastro() {
     console.log(responseJson);
     alert("Cadastro feito com sucesso!");
     //
-  }
+  }*/
 
   return (
     <>
@@ -78,38 +63,33 @@ function Cadastro() {
             Aluno
           </label>
         </div>
-        <form className="forms-cadastro" onSubmit={handleSubmit}>
+        <form className="forms-cadastro" onSubmit={handleSubmit(onSubmit)}>
           <InputText
             values={[
               {
                 type: "text",
                 placeholder: "Nome",
-                value: nome,
-                setFunc: setNome,
+                register: register,
               },
               {
-                type: "email",
+                type: "text",
                 placeholder: "Email",
-                value: email,
-                setFunc: setEmail,
+                register: register,
               },
               {
                 type: "password",
                 placeholder: "Senha",
-                value: senha,
-                setFunc: setSenha,
+                register: register,
               },
               {
                 type: "text",
                 placeholder: "Celular",
-                value: celular,
-                setFunc: setCelular,
+                register: register,
               },
               {
                 type: "text",
                 placeholder: "CREF",
-                value: cref,
-                setFunc: setCref,
+                register: register,
               },
             ]}
           />

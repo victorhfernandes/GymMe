@@ -1,7 +1,6 @@
 //import { ChangeEvent } from "react";
 //import "./InputText.css";
-
-import { Dispatch } from "react";
+import { FieldValues, UseFormRegister } from "react-hook-form";
 
 interface Props {
   values: InputTextType[];
@@ -10,8 +9,7 @@ interface Props {
 type InputTextType = {
   type: string;
   placeholder: string;
-  value: string;
-  setFunc: Dispatch<string>;
+  register: UseFormRegister<FieldValues>;
 };
 
 const InputText = ({ values }: Props) => {
@@ -19,13 +17,11 @@ const InputText = ({ values }: Props) => {
     <>
       {values.map((item, index) => (
         <input
+          {...item.register(item.placeholder.toLowerCase())}
           key={index}
           type={item.type}
           placeholder={item.placeholder}
-          onChange={(event) => item.setFunc(event.target.value)}
-          value={item.value}
           autoComplete="on"
-          name={item.placeholder.toLowerCase()}
         />
       ))}
     </>
