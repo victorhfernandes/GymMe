@@ -7,7 +7,7 @@ function NavBar() {
   const [showNavLinks, setShowNavLinks] = useState(true);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-  function handleHamburger() {
+  async function handleHamburger() {
     setShowNavLinks(!showNavLinks);
   }
 
@@ -38,22 +38,24 @@ function NavBar() {
           <div onClick={handleHamburger}>
             <Hamburguer />
           </div>
-          {showNavLinks && (
-            <div className="nav-links">
-              <NavLink className="navlink" to="/">
-                Inicio
-              </NavLink>
-              <NavLink className="navlink" to="/instrutores">
-                Instrutores
-              </NavLink>
-              <NavLink className="navlink" to="/desenvolvedores">
-                Desenvolvedores
-              </NavLink>
-              <NavLink className="navlink" to="/cadastro">
-                Cadastro
-              </NavLink>
-            </div>
-          )}
+          <div className="nav-anime">
+            {showNavLinks && (
+              <div className="nav-links">
+                <NavLink className="navlink" to="/">
+                  Inicio
+                </NavLink>
+                <NavLink className="navlink" to="/instrutores">
+                  Instrutores
+                </NavLink>
+                <NavLink className="navlink" to="/desenvolvedores">
+                  Desenvolvedores
+                </NavLink>
+                <NavLink className="navlink" to="/cadastro">
+                  Cadastro
+                </NavLink>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </>

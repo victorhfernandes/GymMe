@@ -1,23 +1,27 @@
-@media (max-width: 900px) {
-  .nav-links {
-    flex-direction: column;
-  }
-}
-
 .navbar {
   display: flex;
-  gap: 8px;
+  gap: 0.5rem;
   justify-content: space-between;
   padding: 2%;
 }
 
 .nav-title {
-  font-size: 30px;
+  font-size: 2rem;
   padding: 10px 15px;
 }
 
 .nav-links {
   display: flex;
+  overflow: hidden;
+}
+
+.nav-anime {
+  height: 0;
+  transition: all 500ms ease;
+}
+
+.nav-anime:not(:empty) {
+  height: 180px;
 }
 
 .nav-left {
@@ -41,4 +45,16 @@
 
 .active {
   color: #41a5df;
+}
+
+@media (max-width: 56.25em) {
+  .nav-links {
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 56.25em) {
+  .nav-anime:not(:empty) {
+    height: 0;
+  }
 }
