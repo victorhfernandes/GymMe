@@ -1,5 +1,4 @@
 import logo from "../../assets/gymme braço.png";
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import CardSlider from "../../components/CardSlider/CardSlider";
 import "./Inicio.scss";
