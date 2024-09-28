@@ -4,13 +4,13 @@ import CardSlider from "../../components/CardSlider/CardSlider";
 import "./Inicio.scss";
 
 function Inicio() {
-  /*const [nome, setNome] = useState("");
-  const [email, setEmail] = useState("");
+  function storeInstrutor() {
+    sessionStorage.setItem("categoria", "instrutor");
+  }
 
-  function storeData() {
-    sessionStorage.setItem("nome", nome);
-    sessionStorage.setItem("email", email);
-  }*/
+  function storeAluno() {
+    sessionStorage.setItem("categoria", "aluno");
+  }
 
   return (
     <>
@@ -27,10 +27,18 @@ function Inicio() {
             </p>
             <h2 className="Inicio__left__cadastro">Faça seu Cadastro</h2>
             <div className="Inicio__left__buttons">
-              <Link className="Inicio__left__button" to="/cadastro">
+              <Link
+                className="Inicio__left__button"
+                to="/cadastro"
+                onClick={storeAluno}
+              >
                 Sou aluno
               </Link>
-              <Link className="Inicio__left__button" to="/cadastro">
+              <Link
+                className="Inicio__left__button"
+                to="/cadastro"
+                onClick={storeInstrutor}
+              >
                 Sou instrutor
               </Link>
             </div>

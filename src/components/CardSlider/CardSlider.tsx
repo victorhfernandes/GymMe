@@ -17,12 +17,8 @@ function CardSlider() {
     if (sessionData) {
       SetInstrutoresData(JSON.parse(sessionData));
     } else {
-      console.log("oiii");
-      const URL =
-        import.meta.env.VITE_API_URL ||
-        "https://gymme-api.onrender.com/api/instrutor";
-      // const URL = "http://localhost:3000/api/instrutor";
-      const response = await fetch(URL);
+      const URL = import.meta.env.VITE_API_URL;
+      const response = await fetch(`${URL}/api/instrutor`);
       const data = await response.json();
       const reorganizedData = reorganizeInstrutores(data);
       SetInstrutoresData(reorganizedData);
