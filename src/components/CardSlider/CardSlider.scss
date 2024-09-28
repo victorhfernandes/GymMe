@@ -1,0 +1,35 @@
+.Slider {
+  &__containner {
+    display: flex;
+    padding: 1em;
+    gap: 1rem;
+    background-color: #41a5df;
+    overflow: scroll;
+  }
+  &__cards {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 1em 2em;
+    flex: 0 0 1;
+    background-color: white;
+    border-radius: 1rem;
+    &__picture {
+      width: 100%;
+      border-radius: 50%;
+    }
+    &__especializacoes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+    }
+    &__especializacao {
+      background-color: #41a5df;
+      color: #f0f0f0;
+      padding: 0.25rem 1rem;
+      border-radius: 50px;
+      font-size: 0.75em;
+      font-weight: bold;
+    }
+  }
+}

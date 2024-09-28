@@ -1,23 +1,53 @@
+import { useState } from "react";
 import "./Cadastro.css";
 import { useForm } from "react-hook-form";
+import { z } from "zod";
+import gymmeAluno from "../../assets/gymme-aluno.png";
+import gymmeInstrutor from "../../assets/gymme-instrutor.png";
+
+const schemaPost = z.object({
+  nome: z.string(),
+  email: z.string().email(),
+  senha: z.string(),
+});
+
+type FormFields = z.infer<typeof schemaPost>;
 
 function Cadastro() {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit } = useForm<FormFields>();
+  const [categoria, setCategoria] = useState("instrutor");
+  const URL = import.meta.env.VITE_API_URL;
 
-  function onSubmit(data: any) {
-    console.log(data);
-  }
+  async function onSubmit(data: FormFields) {
+    let postData: object;
 
-  /*async function handleSubmit(event: FormEvent) {
-    event.preventDefault(); // prevent page refresh
-    const URL = "http://localhost:3000/api/instrutor";
+    switch (categoria) {
+      case "instrutor":
+        postData = {
+          nm_instrutor: data.nome,
+          email_instrutor: data.email,
+          senha_instrutor: data.senha,
+        };
+        break;
+      case "aluno":
+        postData = {
+          nm_aluno: data.nome,
+          email_aluno: data.email,
+          senha_aluno: data.senha,
+        };
+        break;
+      default:
+        postData = data;
+    }
 
-    const response = await fetch(URL, {
+    const fetchUrl = `${URL}/api/${categoria}/login`;
+
+    const response = await fetch(fetchUrl, {
       headers: {
         "Content-Type": "application/json",
       },
       method: "POST",
-      body: JSON.stringify("teste"),
+      body: JSON.stringify(postData),
     });
 
     const responseJson = await response.json();
@@ -26,48 +56,51 @@ function Cadastro() {
     console.log(responseJson);
     alert("Cadastro feito com sucesso!");
     //
-  }*/
+  }
 
   return (
     <>
       <div className="containner-cadastro">
-        <h1 className="title">Cadastro</h1>
-        <form className="forms-cadastro" onSubmit={handleSubmit(onSubmit)}>
-          <div className="radio-flex">
-            <label className="label-cadastro">
-              <input
-                {...register("Categoria")}
-                type="radio"
-                value="instrutor"
-              />
-              Instrutor
-            </label>
-            <label className="label-cadastro">
-              <input {...register("Categoria")} type="radio" value="aluno" />
-              Aluno
-            </label>
+        <div className="div-top-cadastro">
+          <h1 className="title">Cadastro</h1>
+          <div className="button-flex">
+            <button onClick={() => setCategoria("aluno")}>Aluno</button>
+            <button onClick={() => setCategoria("instrutor")}>Instrutor</button>
           </div>
-          <input
-            {...register("nome")}
-            type="text"
-            placeholder="Nome"
-            autoComplete="on"
-          />
-          <input
-            {...register("email")}
-            type="email"
-            placeholder="Email"
-            autoComplete="on"
-          />
-          <input {...register("senha")} type="password" placeholder="Senha" />
-          <input
-            {...register("celular")}
-            type="text"
-            placeholder="Celular"
-            autoComplete="on"
-          />
-          <button type="submit">Enviar</button>
-        </form>
+        </div>
+        <div className="div-img-forms">
+          <div className="div-img-categoria">
+            {categoria === "instrutor" ? (
+              <img
+                className="gymme-categoria"
+                src={gymmeInstrutor}
+                alt="Gymme Instrutor"
+              />
+            ) : (
+              <img
+                className="gymme-categoria"
+                src={gymmeAluno}
+                alt="GymMe Aluno"
+              />
+            )}
+          </div>
+          <form className="forms-cadastro" onSubmit={handleSubmit(onSubmit)}>
+            <input
+              {...register("nome")}
+              type="text"
+              placeholder="Nome"
+              autoComplete="on"
+            />
+            <input
+              {...register("email")}
+              type="email"
+              placeholder="Email"
+              autoComplete="on"
+            />
+            <input {...register("senha")} type="password" placeholder="Senha" />
+            <button type="submit">Enviar</button>
+          </form>
+        </div>
       </div>
     </>
   );

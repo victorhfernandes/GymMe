@@ -1,0 +1,80 @@
+.Inicio {
+  &__containner {
+    display: flex;
+    box-sizing: border-box;
+    padding: 2%;
+    @media (max-width: 56.25em /*900px*/) {
+      flex-direction: column;
+    }
+  }
+  &__left {
+    display: flex;
+    flex-direction: column;
+    flex: 1.2;
+    background-color: #f0f0f0;
+    align-items: center;
+    &__info {
+      display: flex;
+      flex-direction: column;
+      width: 50%;
+      @media (max-width: 56.25em /*900px*/) {
+        width: 95%;
+      }
+    }
+    &__title {
+      font-size: 3rem;
+      margin-bottom: 0.15rem;
+    }
+    &__subtitle {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    &__cadastro {
+      font-size: 2rem;
+      margin-bottom: 0.75rem;
+    }
+    &__buttons {
+      display: flex;
+      gap: 0.5rem;
+    }
+    &__button {
+      background-color: #41a5df;
+      text-decoration: none;
+      padding: 0.5em 0.8em;
+      border-radius: 0.32rem;
+      font-size: 1.2rem;
+      color: #f0f0f0;
+      border: 0.06rem solid #41a5df;
+      font-weight: 600;
+      &:hover {
+        opacity: 0.8;
+      }
+      &:active {
+        opacity: 0.5;
+      }
+    }
+  }
+  &__right {
+    display: flex;
+    flex: 0.8;
+    background-color: #f0f0f0;
+    place-content: center;
+    place-items: center;
+    &__logo {
+      width: 75%;
+    }
+  }
+}
+/*input {
+  all: unset;
+  appearance: auto;
+}
+
+input {
+  border: 0.06rem solid #000000;
+  background-color: #f0f0f0;
+  padding: 0.45rem 0.6rem;
+  border-radius: 0.32rem;
+  font-size: 1.2rem;
+  color: black;
+}*/

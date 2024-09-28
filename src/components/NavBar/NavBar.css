@@ -12,16 +12,6 @@
 
 .nav-links {
   display: flex;
-  overflow: hidden;
-}
-
-.nav-anime {
-  height: 0;
-  transition: all 500ms ease;
-}
-
-.nav-anime:not(:empty) {
-  height: 180px;
 }
 
 .nav-left {
@@ -54,7 +44,7 @@
 }
 
 @media (min-width: 56.25em) {
-  .nav-anime:not(:empty) {
-    height: 0;
+  .nav-links {
+    height: auto;
   }
 }

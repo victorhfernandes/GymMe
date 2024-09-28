@@ -4,11 +4,17 @@ import "./NavBar.css";
 import Hamburguer from "../Hamburger/Hamburger";
 
 function NavBar() {
-  const [showNavLinks, setShowNavLinks] = useState(true);
+  const [showNavLinks, setShowNavLinks] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   async function handleHamburger() {
     setShowNavLinks(!showNavLinks);
+  }
+
+  function closeLinks() {
+    if (windowWidth <= 900) {
+      setShowNavLinks(false);
+    }
   }
 
   function updateWindowWidth() {
@@ -38,22 +44,35 @@ function NavBar() {
           <div onClick={handleHamburger}>
             <Hamburguer />
           </div>
-          <div className="nav-anime">
+
+          <div className="nav-links">
             {showNavLinks && (
-              <div className="nav-links">
-                <NavLink className="navlink" to="/">
+              <>
+                <NavLink className="navlink" to="/" onClick={closeLinks}>
                   Inicio
                 </NavLink>
-                <NavLink className="navlink" to="/instrutores">
+                <NavLink
+                  className="navlink"
+                  to="/instrutores"
+                  onClick={closeLinks}
+                >
                   Instrutores
                 </NavLink>
-                <NavLink className="navlink" to="/desenvolvedores">
+                <NavLink
+                  className="navlink"
+                  to="/desenvolvedores"
+                  onClick={closeLinks}
+                >
                   Desenvolvedores
                 </NavLink>
-                <NavLink className="navlink" to="/cadastro">
+                <NavLink
+                  className="navlink"
+                  to="/cadastro"
+                  onClick={closeLinks}
+                >
                   Cadastro
                 </NavLink>
-              </div>
+              </>
             )}
           </div>
         </div>
