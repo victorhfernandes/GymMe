@@ -1,18 +1,30 @@
 .Cadastro {
   &__containner {
-    display: flex;
+    display: grid;
     padding: 2%;
+    grid-template-columns: 50% 20%;
+    grid-template-rows: 4rem 1fr;
+    grid-template-areas:
+      "left-top right"
+      "left-bottom right";
     justify-content: center;
     @media (max-width: 56.25em /*900px*/) {
-      flex-direction: column-reverse;
+      grid-template-columns: 95%;
+      grid-template-rows: 4rem 1fr 1fr;
+      grid-template-areas:
+        "left-top"
+        "right"
+        "left-bottom";
     }
   }
-  &__left {
-    flex: 0.5;
-    //padding: 0 0 0 10em;
+  &__left-top {
+    grid-area: left-top;
     &__title {
       font-size: 3rem;
     }
+  }
+  &__left-bottom {
+    grid-area: left-bottom;
     &__buttons {
       display: flex;
       flex-wrap: wrap;
@@ -38,15 +50,13 @@
     }
   }
   &__right {
+    grid-area: right;
     display: flex;
     flex-direction: column;
-    align-items: end;
-    flex: 0.3;
-
     &__gymme {
       width: 100%;
       @media (max-width: 56.25em /*900px*/) {
-        width: 30%;
+        width: 70%;
       }
     }
   }

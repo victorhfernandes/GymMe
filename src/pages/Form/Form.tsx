@@ -2,6 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import "./Form.scss";
+import { useEffect } from "react";
 
 const schemaPost = z.object({
   nome: z.string().min(1, { message: "Campo nome é obrigatorio!" }),
@@ -23,6 +24,7 @@ function Form({ categoria }: Props) {
     register,
     handleSubmit,
     setError,
+    clearErrors,
     formState: { errors, isSubmitting },
   } = useForm<FormFields>({
     resolver: zodResolver(schemaPost),
@@ -42,13 +44,23 @@ function Form({ categoria }: Props) {
     });
     const responseJson = await response.json();
 
-    if (!response.ok) {
-      setError("root", {
-        message: responseJson.message,
-      });
-    }
     if (response.ok) {
       alert("Cadastro feito com sucesso!");
+      clearErrors();
+    } else {
+      let errorType: string;
+      if (typeof responseJson.message === "string") {
+        errorType = responseJson.message;
+        if (errorType.includes("Email")) {
+          setError("email", {
+            message: errorType,
+          });
+        }
+      } else {
+        setError("root", {
+          message: responseJson.message,
+        });
+      }
     }
   }
 
@@ -75,32 +87,44 @@ function Form({ categoria }: Props) {
     return postData;
   }
 
+  function highlightInputError(error: boolean) {
+    if (error) {
+      return "Form__input__error";
+    } else {
+      return "Form__input";
+    }
+  }
+
+  useEffect(() => {
+    clearErrors();
+  }, [categoria]);
+
   return (
     <form className="Form__containner" onSubmit={handleSubmit(onSubmit)}>
-      {errors.root && <p>{errors.root.message}</p>}
+      {errors.root && <p className="Form__error">{errors.root.message}</p>}
       <input
-        className="Form__input"
+        className={highlightInputError(!!errors.nome)}
         {...register("nome")}
         type="text"
         placeholder="Nome"
         autoComplete="on"
       />
-      {errors.nome && <p>{errors.nome.message}</p>}
+      {errors.nome && <p className="Form__error">{errors.nome.message}</p>}
       <input
-        className="Form__input"
+        className={highlightInputError(!!errors.email)}
         {...register("email")}
-        type="email"
+        type="text"
         placeholder="Email"
         autoComplete="on"
       />
-      {errors.email && <p>{errors.email.message}</p>}
+      {errors.email && <p className="Form__error">{errors.email.message}</p>}
       <input
-        className="Form__input"
+        className={highlightInputError(!!errors.senha)}
         {...register("senha")}
         type="password"
         placeholder="Senha"
       />
-      {errors.senha && <p>{errors.senha.message}</p>}
+      {errors.senha && <p className="Form__error">{errors.senha.message}</p>}
       <button className="Form__button" disabled={isSubmitting} type="submit">
         Enviar
       </button>

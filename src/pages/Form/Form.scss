@@ -13,6 +13,10 @@
     border-radius: 0.3rem;
     font-size: 1.3rem;
     color: #000000;
+    &__error {
+      @extend .Form__input;
+      border: 0.06rem solid #de4046;
+    }
   }
   &__button {
     background-color: #41a5df;
@@ -29,6 +33,10 @@
     &:active {
       opacity: 0.5;
     }
+  }
+  &__error {
+    color: #de4046;
+    font-weight: bold;
   }
 }
 

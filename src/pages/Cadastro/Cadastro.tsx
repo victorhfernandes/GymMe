@@ -12,17 +12,19 @@ function Cadastro() {
   return (
     <>
       <div className="Cadastro__containner">
-        <div className="Cadastro__left">
-          <h1 className="Cadastro__left__title">Cadastro</h1>
-          <div className="Cadastro__left__buttons">
+        <div className="Cadastro__left-top">
+          <h1 className="Cadastro__left-top__title">Cadastro</h1>
+        </div>
+        <div className="Cadastro__left-bottom">
+          <div className="Cadastro__left-bottom__buttons">
             <button
-              className="Cadastro__left__button"
+              className="Cadastro__left-bottom__button"
               onClick={() => setCategoria("aluno")}
             >
               Aluno
             </button>
             <button
-              className="Cadastro__left__button"
+              className="Cadastro__left-bottom__button"
               onClick={() => setCategoria("instrutor")}
             >
               Instrutor
@@ -31,7 +33,6 @@ function Cadastro() {
           <Form categoria={categoria} />
         </div>
         <div className="Cadastro__right">
-          <h2 className="Cadastro__right__desc">{categoria}</h2>
           {categoria === "instrutor" ? (
             <img
               className="Cadastro__right__gymme"
