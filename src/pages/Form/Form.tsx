@@ -32,38 +32,36 @@ function Form({ categoria }: Props) {
   const URL = import.meta.env.VITE_API_URL;
 
   async function onSubmit(data: FormFields) {
-    try {
-      const postData = reorganizeData(data);
+    const postData = reorganizeData(data);
 
-      const fetchUrl = `${URL}/api/${categoria}`;
-      const response = await fetch(fetchUrl, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        method: "POST",
-        body: JSON.stringify(postData),
-      });
-      const responseJson = await response.json();
+    const fetchUrl = `${URL}/api/${categoria}`;
+    const response = await fetch(fetchUrl, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+      body: JSON.stringify(postData),
+    });
+    const responseJson = await response.json();
 
-      if (response.ok) {
-        alert("Cadastro feito com sucesso!");
-      } else {
-        let errorType: string;
-        if (typeof responseJson.message === "string") {
-          errorType = responseJson.message;
-          if (errorType.includes("Email")) {
-            setError("email", {
-              message: errorType,
-            });
-          }
-        } else {
-          setError("root", {
-            message: responseJson.message,
+    if (response.ok) {
+      alert("Cadastro feito com sucesso!");
+    } else {
+      let errorType: string;
+      if (typeof responseJson.message === "string") {
+        errorType = responseJson.message;
+        if (errorType.includes("Email")) {
+          alert("Email já cadastrado!");
+          setError("email", {
+            message: errorType,
           });
         }
+      } else {
+        alert("Algo deu errado tente novamente!");
+        setError("root", {
+          message: responseJson.message,
+        });
       }
-    } catch (error) {
-      console.log(error);
     }
   }
 
