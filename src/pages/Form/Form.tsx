@@ -48,7 +48,8 @@ function Form({ categoria }: Props) {
 
     if (response.ok) {
       alert("Cadastro feito com sucesso!");
-    } else {
+    }
+    if (!response.ok) {
       let errorType: string;
       if (typeof responseJson.message === "string") {
         errorType = responseJson.message;
