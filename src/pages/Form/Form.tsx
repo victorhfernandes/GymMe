@@ -44,6 +44,8 @@ function Form({ categoria }: Props) {
     });
     const responseJson = await response.json();
 
+    console.log(response);
+
     if (response.ok) {
       alert("Cadastro feito com sucesso!");
     } else {
