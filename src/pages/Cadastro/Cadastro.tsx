@@ -9,6 +9,10 @@ function Cadastro() {
     sessionStorage.getItem("categoria") || "aluno"
   );
 
+  function firstLetterUpperCase(word: string) {
+    return word[0].toUpperCase() + word.slice(1);
+  }
+
   return (
     <>
       <div className="Cadastro__containner">
@@ -32,20 +36,23 @@ function Cadastro() {
           </div>
           <Form categoria={categoria} />
         </div>
-        <div className="Cadastro__right">
+        <div className="Cadastro__right-top">
           {categoria === "instrutor" ? (
             <img
-              className="Cadastro__right__gymme"
+              className="Cadastro__right-top__gymme"
               src={gymmeInstrutor}
               alt="Gymme Instrutor"
             />
           ) : (
             <img
-              className="Cadastro__right__gymme"
+              className="Cadastro__right-top__gymme"
               src={gymmeAluno}
               alt="GymMe Aluno"
             />
           )}
+        </div>
+        <div className="Cadastro__right-bottom">
+          <h1>{firstLetterUpperCase(categoria)}</h1>
         </div>
       </div>
     </>
