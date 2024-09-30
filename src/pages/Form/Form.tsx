@@ -44,23 +44,18 @@ function Form({ categoria }: Props) {
     });
     const responseJson = await response.json();
 
-    console.log(response);
-
     if (response.ok) {
       alert("Cadastro feito com sucesso!");
-    }
-    if (!response.ok) {
+    } else {
       let errorType: string;
       if (typeof responseJson.message === "string") {
         errorType = responseJson.message;
         if (errorType.includes("Email")) {
-          alert("Email já cadastrado!");
           setError("email", {
             message: errorType,
           });
         }
       } else {
-        alert("Algo deu errado tente novamente!");
         setError("root", {
           message: responseJson.message,
         });
