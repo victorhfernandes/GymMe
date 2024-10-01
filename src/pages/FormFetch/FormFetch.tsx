@@ -1,11 +1,11 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import "./Form.scss";
 import { useEffect } from "react";
+import "./FormFetch.scss";
+import { useNavigate } from "react-router-dom";
 
 const schemaPost = z.object({
-  nome: z.string().min(1, { message: "Campo nome é obrigatorio!" }),
   email: z.string().email({ message: "Email invalido!" }),
   senha: z
     .string()
@@ -17,9 +17,10 @@ type FormFields = z.infer<typeof schemaPost>;
 
 type Props = {
   categoria: string;
+  tipo: string;
 };
 
-function Form({ categoria }: Props) {
+function Form({ categoria, tipo }: Props) {
   const {
     register,
     handleSubmit,
@@ -29,12 +30,13 @@ function Form({ categoria }: Props) {
   } = useForm<FormFields>({
     resolver: zodResolver(schemaPost),
   });
+  const navigate = useNavigate();
   const URL = import.meta.env.VITE_API_URL;
 
   async function onSubmit(data: FormFields) {
     const postData = reorganizeData(data);
 
-    const fetchUrl = `${URL}/api/${categoria}`;
+    const fetchUrl = `${URL}/api/${categoria}/${tipo}`;
     const response = await fetch(fetchUrl, {
       headers: {
         "Content-Type": "application/json",
@@ -44,20 +46,31 @@ function Form({ categoria }: Props) {
     });
     const responseJson = await response.json();
 
-    if (response.ok) {
-      alert("Cadastro feito com sucesso!");
-    } else {
-      let errorType: string;
-      if (typeof responseJson.message === "string") {
-        errorType = responseJson.message;
-        if (errorType.includes("Email")) {
-          setError("email", {
-            message: errorType,
+    if (tipo === "cadastro") {
+      if (response.ok) {
+        alert("Cadastro feito com sucesso!");
+      } else {
+        let errorType: string;
+        if (typeof responseJson.message === "string") {
+          errorType = responseJson.message;
+          if (errorType.includes("Email")) {
+            setError("email", {
+              message: errorType,
+            });
+          }
+        } else {
+          setError("root", {
+            message: responseJson.message,
           });
         }
+      }
+    } else {
+      if (response.ok) {
+        //sessionStorage.setItem("authUser", responseJson.id);
+        navigate("/dashboard");
       } else {
         setError("root", {
-          message: responseJson.message,
+          message: "Email ou senha incorretos!",
         });
       }
     }
@@ -68,14 +81,12 @@ function Form({ categoria }: Props) {
     switch (categoria) {
       case "instrutor":
         postData = {
-          nm_instrutor: data.nome,
           email_instrutor: data.email,
           senha_instrutor: data.senha,
         };
         break;
       case "aluno":
         postData = {
-          nm_aluno: data.nome,
           email_aluno: data.email,
           senha_aluno: data.senha,
         };
@@ -88,9 +99,9 @@ function Form({ categoria }: Props) {
 
   function highlightInputError(error: boolean) {
     if (error) {
-      return "Form__input__error";
+      return "FormFetch__input__error";
     } else {
-      return "Form__input";
+      return "FormFetch__input";
     }
   }
 
@@ -99,16 +110,8 @@ function Form({ categoria }: Props) {
   }, [categoria]);
 
   return (
-    <form className="Form__containner" onSubmit={handleSubmit(onSubmit)}>
-      {errors.root && <p className="Form__error">{errors.root.message}</p>}
-      <input
-        className={highlightInputError(!!errors.nome)}
-        {...register("nome")}
-        type="text"
-        placeholder="Nome"
-        autoComplete="on"
-      />
-      {errors.nome && <p className="Form__error">{errors.nome.message}</p>}
+    <form className="FormFetch__containner" onSubmit={handleSubmit(onSubmit)}>
+      {errors.root && <p className="FormFetch__error">{errors.root.message}</p>}
       <input
         className={highlightInputError(!!errors.email)}
         {...register("email")}
@@ -116,15 +119,23 @@ function Form({ categoria }: Props) {
         placeholder="Email"
         autoComplete="on"
       />
-      {errors.email && <p className="Form__error">{errors.email.message}</p>}
+      {errors.email && (
+        <p className="FormFetch__error">{errors.email.message}</p>
+      )}
       <input
         className={highlightInputError(!!errors.senha)}
         {...register("senha")}
         type="password"
         placeholder="Senha"
       />
-      {errors.senha && <p className="Form__error">{errors.senha.message}</p>}
-      <button className="Form__button" disabled={isSubmitting} type="submit">
+      {errors.senha && (
+        <p className="FormFetch__error">{errors.senha.message}</p>
+      )}
+      <button
+        className="FormFetch__button"
+        disabled={isSubmitting}
+        type="submit"
+      >
         Enviar
       </button>
     </form>

@@ -72,6 +72,9 @@ function NavBar() {
                 >
                   Cadastro
                 </NavLink>
+                <NavLink className="navlink" to="/login" onClick={closeLinks}>
+                  Login
+                </NavLink>
               </>
             )}
           </div>

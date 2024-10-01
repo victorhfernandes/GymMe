@@ -23,6 +23,10 @@ function Footer() {
         <Link className="link" to="/cadastro">
           Cadastro
         </Link>
+        |
+        <Link className="link" to="/dashboard">
+          Login
+        </Link>
       </footer>
     </>
   );

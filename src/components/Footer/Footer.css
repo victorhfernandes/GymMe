@@ -1,5 +1,6 @@
 footer {
   display: flex;
+  flex-wrap: wrap;
   place-content: center;
   place-items: center;
   gap: 8px;

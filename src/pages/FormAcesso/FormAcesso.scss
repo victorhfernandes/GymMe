@@ -1,0 +1,61 @@
+.Acesso {
+  &__containner {
+    display: grid;
+    padding: 2%;
+    grid-template-columns: 50% 350px;
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+      "left-top right"
+      "left-bottom right";
+    justify-content: center;
+    @media (max-width: 56.25em /*900px*/) {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto 8rem 1fr;
+      grid-template-areas:
+        "left-top left-top"
+        "right right"
+        "left-bottom left-bottom";
+    }
+  }
+  &__left-top {
+    grid-area: left-top;
+    &__title {
+      font-size: 3rem;
+    }
+  }
+  &__left-bottom {
+    grid-area: left-bottom;
+    &__categoria {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 1.2rem;
+      margin: 0.5rem 0;
+      align-items: center;
+    }
+    &__select {
+      all: unset;
+      background-color: #f0f0f0;
+      appearance: auto;
+      border: 0.06rem solid #000000;
+      background-color: #f0f0f0;
+      padding: 0.45em 0.6em;
+      border-radius: 0.3rem;
+      color: #000000;
+      font-size: 1.2rem;
+    }
+  }
+  &__right {
+    grid-area: right;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    &__gymme {
+      width: 350px;
+      @media (max-width: 56.25em /*900px*/) {
+        width: 150px;
+      }
+    }
+  }
+}
