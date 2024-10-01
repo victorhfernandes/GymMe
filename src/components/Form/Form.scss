@@ -1,4 +1,4 @@
-.FormFetch {
+.Form {
   &__containner {
     display: flex;
     gap: 0.25rem;
@@ -14,7 +14,7 @@
     font-size: 1.3rem;
     color: #000000;
     &__error {
-      @extend .FormFetch__input;
+      @extend .Form__input;
       border: 0.06rem solid #de4046;
     }
   }

@@ -1,6 +1,6 @@
-import logo from "../../assets/gymme braço.png";
+import logo from "../../../assets/gymme-braço.png";
 import { Link } from "react-router-dom";
-import CardSlider from "../../components/CardSlider/CardSlider";
+import CardSlider from "../../../components/CardSlider/CardSlider";
 import "./Inicio.scss";
 
 function Inicio() {

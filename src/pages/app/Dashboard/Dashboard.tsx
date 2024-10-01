@@ -1,4 +1,4 @@
-import logo from "../../assets/gymme braço.png";
+import logo from "../../../assets/gymme-braço.png";
 
 function Dashboard() {
   return (

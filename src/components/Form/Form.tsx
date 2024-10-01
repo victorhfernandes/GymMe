@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useEffect } from "react";
-import "./FormFetch.scss";
+import "./Form.scss";
 import { useNavigate } from "react-router-dom";
 
 const schemaPost = z.object({
@@ -36,43 +36,50 @@ function Form({ categoria, tipo }: Props) {
   async function onSubmit(data: FormFields) {
     const postData = reorganizeData(data);
 
-    const fetchUrl = `${URL}/api/${categoria}/${tipo}`;
-    const response = await fetch(fetchUrl, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      method: "POST",
-      body: JSON.stringify(postData),
-    });
-    const responseJson = await response.json();
+    try {
+      const fetchUrl = `${URL}/api/${categoria}/${tipo}`;
+      const response = await fetch(fetchUrl, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+        body: JSON.stringify(postData),
+      });
+      const responseJson = await response.json();
 
-    if (tipo === "cadastro") {
-      if (response.ok) {
-        alert("Cadastro feito com sucesso!");
-      } else {
-        let errorType: string;
-        if (typeof responseJson.message === "string") {
-          errorType = responseJson.message;
-          if (errorType.includes("Email")) {
-            setError("email", {
-              message: errorType,
+      if (tipo === "cadastro") {
+        if (response.ok) {
+          alert("Cadastro feito com sucesso!");
+        } else {
+          let errorType: string;
+          if (typeof responseJson.message === "string") {
+            errorType = responseJson.message;
+            if (errorType.includes("Email")) {
+              setError("email", {
+                message: errorType,
+              });
+            }
+          } else {
+            setError("root", {
+              message: responseJson.message,
             });
           }
+        }
+      } else {
+        console.log(responseJson);
+        if (response.ok) {
+          sessionStorage.setItem("authUser", JSON.stringify(responseJson));
+          navigate("/app/dashboard");
         } else {
           setError("root", {
-            message: responseJson.message,
+            message: "Email ou senha incorretos!",
           });
         }
       }
-    } else {
-      if (response.ok) {
-        //sessionStorage.setItem("authUser", responseJson.id);
-        navigate("/dashboard");
-      } else {
-        setError("root", {
-          message: "Email ou senha incorretos!",
-        });
-      }
+    } catch (error) {
+      setError("root", {
+        message: "Algo deu errado, tente novamente mais tarde.",
+      });
     }
   }
 
@@ -99,19 +106,20 @@ function Form({ categoria, tipo }: Props) {
 
   function highlightInputError(error: boolean) {
     if (error) {
-      return "FormFetch__input__error";
+      return "Form__input__error";
     } else {
-      return "FormFetch__input";
+      return "Form__input";
     }
   }
 
   useEffect(() => {
     clearErrors();
-  }, [categoria]);
+  }, [categoria, tipo]);
 
   return (
-    <form className="FormFetch__containner" onSubmit={handleSubmit(onSubmit)}>
-      {errors.root && <p className="FormFetch__error">{errors.root.message}</p>}
+    <form className="Form__containner" onSubmit={handleSubmit(onSubmit)}>
+      {errors.root && <p className="Form__error">{errors.root.message}</p>}
+      {isSubmitting && <p>Carregando...</p>}
       <input
         className={highlightInputError(!!errors.email)}
         {...register("email")}
@@ -119,23 +127,15 @@ function Form({ categoria, tipo }: Props) {
         placeholder="Email"
         autoComplete="on"
       />
-      {errors.email && (
-        <p className="FormFetch__error">{errors.email.message}</p>
-      )}
+      {errors.email && <p className="Form__error">{errors.email.message}</p>}
       <input
         className={highlightInputError(!!errors.senha)}
         {...register("senha")}
         type="password"
         placeholder="Senha"
       />
-      {errors.senha && (
-        <p className="FormFetch__error">{errors.senha.message}</p>
-      )}
-      <button
-        className="FormFetch__button"
-        disabled={isSubmitting}
-        type="submit"
-      >
+      {errors.senha && <p className="Form__error">{errors.senha.message}</p>}
+      <button className="Form__button" disabled={isSubmitting} type="submit">
         Enviar
       </button>
     </form>
