@@ -51,35 +51,41 @@ function Form({ categoria, tipo }: Props) {
         if (response.ok) {
           alert("Cadastro feito com sucesso!");
         } else {
-          let errorType: string;
-          if (typeof responseJson.message === "string") {
-            errorType = responseJson.message;
-            if (errorType.includes("Email")) {
-              setError("email", {
-                message: errorType,
-              });
-            }
-          } else {
-            setError("root", {
-              message: responseJson.message,
-            });
-          }
+          throw new Error(responseJson.message);
         }
       } else {
-        console.log(responseJson);
+        //console.log(responseJson);
         if (response.ok) {
           sessionStorage.setItem("authUser", JSON.stringify(responseJson));
           navigate("/app/dashboard");
         } else {
+          throw new Error("Email ou senha incorretos!");
+        }
+      }
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        if (tipo === "cadastro") {
+          if (error.message.includes("Email")) {
+            setError("email", {
+              message: error.message,
+            });
+          } else {
+            setError("root", {
+              message: "Algo deu errado, tente novamente mais tarde.",
+            });
+          }
+        } else {
           setError("root", {
-            message: "Email ou senha incorretos!",
+            message: error.message,
           });
         }
       }
-    } catch (error) {
-      setError("root", {
-        message: "Algo deu errado, tente novamente mais tarde.",
-      });
+      // let errorType: string;
+      // if (typeof responseJson.message === "string") {
+      //   errorType = responseJson.message;
+      //   } else {
+      //   }
+      // }
     }
   }
 
