@@ -1,0 +1,41 @@
+.FormAluno {
+  &__containner {
+    display: flex;
+    gap: 0.25rem;
+    flex-direction: column;
+  }
+  &__input {
+    all: unset;
+    appearance: auto;
+    border: 0.06rem solid #000000;
+    background-color: #f0f0f0;
+    padding: 0.45em 0.6em;
+    border-radius: 0.3rem;
+    font-size: 1.3rem;
+    color: #000000;
+    &__error {
+      @extend .FormAluno__input;
+      border: 0.06rem solid #de4046;
+    }
+  }
+  &__button {
+    background-color: #41a5df;
+    text-decoration: none;
+    padding: 0.5em 0.8em;
+    border-radius: 0.32rem;
+    font-size: 1.2rem;
+    color: #f0f0f0;
+    border: 0.06rem solid #41a5df;
+    font-weight: 600;
+    &:hover {
+      opacity: 0.8;
+    }
+    &:active {
+      opacity: 0.5;
+    }
+  }
+  &__error {
+    color: #de4046;
+    font-weight: bold;
+  }
+}

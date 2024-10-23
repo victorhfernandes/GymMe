@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Form from "../../../components/Form/Form";
+import Form from "./Form/Form";
 import gymmeAluno from "../../../assets/gymme-aluno.png";
 import gymmeInstrutor from "../../../assets/gymme-instrutor.png";
 import "./CadastroLogin.scss";
