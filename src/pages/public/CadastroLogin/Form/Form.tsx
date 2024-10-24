@@ -80,12 +80,6 @@ function Form({ categoria, tipo }: Props) {
           });
         }
       }
-      // let errorType: string;
-      // if (typeof responseJson.message === "string") {
-      //   errorType = responseJson.message;
-      //   } else {
-      //   }
-      // }
     }
   }
 

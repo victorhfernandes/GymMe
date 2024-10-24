@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import Modal from "../../../components/Modal/Modal";
 import FormAluno from "./FormAluno/FormAluno";
 import FormInstrutor from "./FormInstrutor/FormInstrutor";
 
@@ -50,7 +49,7 @@ function Dashboard() {
     <>
       {isCadastroImcompleto ? (
         type === "Aluno" ? (
-          <FormAluno />
+          <FormAluno type={type} id={id} />
         ) : (
           <FormInstrutor />
         )

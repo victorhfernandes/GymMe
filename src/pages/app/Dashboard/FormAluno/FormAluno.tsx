@@ -1,54 +1,73 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import "./FormAluno.scss";
 import Modal from "../../../../components/Modal/Modal";
 
 const celRegex = /^\(?\d{2}\)?\s?\d{5}-?\d{4}$/;
 
 const schemaPost = z.object({
-  nome: z.string().min(1, { message: "Escreva um nome valido!" }),
-  celular: z
+  nm_aluno: z.string().min(1, { message: "Escreva um nome valido!" }),
+  celular_aluno: z
     .string()
     .regex(celRegex, { message: "Número de celular inválido!" }),
-  dataNascimento: z.date(),
+  nascimento_aluno: z.string().date(),
 });
 
 type FormFields = z.infer<typeof schemaPost>;
 
-function FormAluno() {
+type Props = {
+  type: string;
+  id: string;
+};
+
+function FormAluno({ type, id }: Props) {
   const {
     register,
     handleSubmit,
-    setError,
-    clearErrors,
+    // setError,
+    // clearErrors,
     formState: { errors, isSubmitting },
   } = useForm<FormFields>({
     resolver: zodResolver(schemaPost),
   });
+  const URL = import.meta.env.VITE_API_URL;
 
-  async function onSubmit(data: FormFields) {}
+  async function onSubmit(data: FormFields) {
+    const fetchUrl = `${URL}/api/${type.toLowerCase()}/cadastro/${id}`;
+    const response = await fetch(fetchUrl, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "PATCH",
+      body: JSON.stringify(data),
+    });
+    const responseJson = await response.json();
+    console.log(responseJson);
+  }
+
   return (
     <Modal>
-      <form className="Form__containner" onSubmit={handleSubmit(onSubmit)}>
+      <form className="FormAluno__containner" onSubmit={handleSubmit(onSubmit)}>
+        {isSubmitting && <p>Carregando...</p>}
         <input
           className="FormAluno__input"
-          {...register("nome")}
+          {...register("nm_aluno")}
           type="text"
           placeholder="Nome"
           autoComplete="on"
         />
         <input
           className="FormAluno__input"
-          {...register("celular")}
+          {...register("celular_aluno")}
           type="text"
           placeholder="Celular"
           autoComplete="on"
         />
         <input
           className="FormAluno__input"
-          {...register("dataNascimento")}
+          {...register("nascimento_aluno")}
           type="date"
           placeholder="Data de Nascimento"
           autoComplete="on"
