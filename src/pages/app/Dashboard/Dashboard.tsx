@@ -5,11 +5,11 @@ import FormInstrutor from "./FormInstrutor/FormInstrutor";
 function Dashboard() {
   const [isCadastroImcompleto, setIsCadastroImcompleto] = useState();
   const id = getId();
-  const type = getType();
+  const categoria = getCategoria();
 
   async function fetchInfos() {
     const URL = import.meta.env.VITE_API_URL;
-    const response = await fetch(`${URL}/api/${type}/${id}`);
+    const response = await fetch(`${URL}/api/${categoria}/${id}`);
     const data = await response.json();
     setIsCadastroImcompleto(data);
   }
@@ -18,7 +18,7 @@ function Dashboard() {
     fetchInfos();
   }, []);
 
-  function getType() {
+  function getCategoria() {
     let session = sessionStorage.getItem("authUser");
     if (session) {
       if (session.includes("aluno")) {
@@ -48,8 +48,8 @@ function Dashboard() {
   return (
     <>
       {isCadastroImcompleto ? (
-        type === "Aluno" ? (
-          <FormAluno type={type} id={id} />
+        categoria === "Aluno" ? (
+          <FormAluno categoria={categoria} id={id} />
         ) : (
           <FormInstrutor />
         )

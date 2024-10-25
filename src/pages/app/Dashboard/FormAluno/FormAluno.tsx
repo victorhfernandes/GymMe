@@ -18,24 +18,27 @@ const schemaPost = z.object({
 type FormFields = z.infer<typeof schemaPost>;
 
 type Props = {
-  type: string;
+  categoria: string;
   id: string;
 };
 
-function FormAluno({ type, id }: Props) {
+function FormAluno({ categoria, id }: Props) {
   const {
     register,
     handleSubmit,
     // setError,
     // clearErrors,
-    formState: { errors, isSubmitting },
+    formState: {
+      // errors,
+      isSubmitting,
+    },
   } = useForm<FormFields>({
     resolver: zodResolver(schemaPost),
   });
   const URL = import.meta.env.VITE_API_URL;
 
   async function onSubmit(data: FormFields) {
-    const fetchUrl = `${URL}/api/${type.toLowerCase()}/cadastro/${id}`;
+    const fetchUrl = `${URL}/api/${categoria.toLowerCase()}/cadastro/${id}`;
     const response = await fetch(fetchUrl, {
       headers: {
         "Content-Type": "application/json",
