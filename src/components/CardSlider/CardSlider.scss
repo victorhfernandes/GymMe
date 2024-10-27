@@ -16,6 +16,8 @@
     border-radius: 1rem;
     &__picture {
       width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
       border-radius: 50%;
     }
     &__especializacoes {

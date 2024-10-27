@@ -12,9 +12,9 @@ function Modal({ children }: Props) {
     dialogRef.current?.showModal();
   }
 
-  function onClose() {
-    dialogRef.current?.close();
-  }
+  // function onClose() {
+  //   dialogRef.current?.close();
+  // }
 
   useEffect(() => {
     onShow();

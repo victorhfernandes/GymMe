@@ -51,7 +51,7 @@ function Dashboard() {
         categoria === "Aluno" ? (
           <FormAluno categoria={categoria} id={id} />
         ) : (
-          <FormInstrutor />
+          <FormInstrutor categoria={categoria} id={id} />
         )
       ) : (
         <div>Cadastro completo tela de usuario</div>

@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
+import gymme from "../../assets/gymme-braço.png";
 import "./CardSlider.scss";
 
 type instrutoresData = {
   nome: string;
   especializacoes: string;
+  foto: string;
   especializacao: string[];
 };
 
@@ -28,7 +30,6 @@ function CardSlider() {
 
   function reorganizeInstrutores(data: instrutoresData[]) {
     data.map((item) => (item.especializacao = item.especializacoes.split(";")));
-
     return data;
   }
 
@@ -46,11 +47,15 @@ function CardSlider() {
       <div className="Slider__containner">
         {instrutoresData.map((item, index) => (
           <div className="Slider__cards" key={index}>
-            <img
-              className="Slider__cards__picture"
-              src={`https://randomuser.me/api/portraits/men/${index}.jpg`}
-              alt=""
-            />
+            {item.foto ? (
+              <img
+                className="Slider__cards__picture"
+                src={`https://firebasestorage.googleapis.com/v0/b/gymme-9c815.appspot.com/o/${item.foto}`}
+                alt=""
+              />
+            ) : (
+              <img className="Slider__cards__picture" src={gymme} alt="" />
+            )}
             <h2>{item.nome}</h2>
             <h3>Especializações</h3>
             <div className="Slider__cards__especializacoes">
