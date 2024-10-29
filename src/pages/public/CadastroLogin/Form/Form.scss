@@ -13,6 +13,9 @@
     border-radius: 0.3rem;
     font-size: 1.3rem;
     color: #000000;
+    &:hover {
+      border-color: gray;
+    }
     &__error {
       @extend .Form__input;
       border: 0.06rem solid #de4046;

@@ -50,6 +50,7 @@ function Form({ categoria, tipo }: Props) {
       if (tipo === "cadastro") {
         if (response.ok) {
           alert("Cadastro feito com sucesso!");
+          navigate("/login");
         } else {
           throw new Error(responseJson.message);
         }

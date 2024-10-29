@@ -7,6 +7,7 @@ import { z } from "zod";
 import "./FormInstrutor.scss";
 import Modal from "../../../../components/Modal/Modal";
 import { useEffect, useState } from "react";
+import "./FormInstrutor.scss";
 
 const schemaPostInstrutor = z.object({
   nm_instrutor: z.string().min(1, { message: "Escreva um nome valido!" }),
@@ -77,7 +78,9 @@ function FormInstrutor({ categoria, id }: Props) {
       body: JSON.stringify(data),
     });
     const responseJson = await response.json();
-    console.log(responseJson);
+    if (responseJson) {
+      window.location.reload();
+    }
   }
 
   async function fetchEspecializacoes() {
@@ -95,14 +98,11 @@ function FormInstrutor({ categoria, id }: Props) {
   return (
     <>
       <Modal>
-        <form
-          className="FormAluno__containner"
-          onSubmit={handleSubmit(onSubmit)}
-        >
+        <form className="Form__containner" onSubmit={handleSubmit(onSubmit)}>
           {isSubmitting && <p>Carregando...</p>}
 
           <input
-            className="FormAluno__input"
+            className="Form__input"
             {...register("nm_instrutor")}
             type="text"
             placeholder="Nome"
@@ -112,7 +112,7 @@ function FormInstrutor({ categoria, id }: Props) {
             <p className="Form__error">{errors.nm_instrutor.message}</p>
           )}
           <input
-            className="FormAluno__input"
+            className="Form__input"
             {...register("cel_instrutor")}
             type="text"
             placeholder="Celular"
@@ -122,7 +122,7 @@ function FormInstrutor({ categoria, id }: Props) {
             <p className="Form__error">{errors.cel_instrutor.message}</p>
           )}
           <input
-            className="FormAluno__input"
+            className="Form__input"
             {...register("nascimento_instrutor")}
             type="date"
             placeholder="Data de Nascimento"
@@ -132,7 +132,7 @@ function FormInstrutor({ categoria, id }: Props) {
             <p className="Form__error">{errors.nascimento_instrutor.message}</p>
           )}
           <input
-            className="FormAluno__input"
+            className="Form__input"
             {...register("cpf_instrutor")}
             type="text"
             placeholder="CPF"
@@ -142,7 +142,7 @@ function FormInstrutor({ categoria, id }: Props) {
             <p className="Form__error">{errors.cpf_instrutor.message}</p>
           )}
           <input
-            className="FormAluno__input"
+            className="Form__input"
             {...register("cref_instrutor")}
             type="text"
             placeholder="CREF"
@@ -156,6 +156,18 @@ function FormInstrutor({ categoria, id }: Props) {
             name="especializacoes"
             render={({ field: { onChange, value, name } }) => (
               <Select
+                className="Form__select"
+                styles={{
+                  control: (baseStyles) => ({
+                    ...baseStyles,
+                    backgroundColor: "#f0f0f0",
+                    fontSize: "1.3rem",
+                    padding: "0.2em 0.15em",
+                    border: "0.06rem solid #000000",
+                    borderRadius: "0.3rem",
+                  }),
+                }}
+                placeholder="Especializações"
                 options={especializacoes}
                 isMulti={true}
                 onChange={onChange}
@@ -176,7 +188,7 @@ function FormInstrutor({ categoria, id }: Props) {
             }}
           />
           <button
-            className="FormAluno__button"
+            className="Form__button"
             disabled={isSubmitting}
             type="submit"
           >
