@@ -19,7 +19,8 @@ const schemaPostInstrutor = z.object({
   }),
   cref_instrutor: z
     .string()
-    .regex(/^\d{6}-G\/[A-Z]{2}$/, { message: "Número de CREF invalido" }),
+    // .regex(/^\d{6}-G\/[A-Z]{2}$/, { message: "Número de CREF invalido" })
+    .optional(),
   especializacoes: z.array(
     z.object({
       value: z.number(),

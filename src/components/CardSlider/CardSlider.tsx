@@ -42,7 +42,7 @@ function CardSlider() {
   }, []);
 
   return (
-    <>
+    <div className="Slider__main">
       <h1 className="Slider__title">Conheça nossos instrutores</h1>
       <div className="Slider__containner">
         {instrutoresData.map((item, index) => (
@@ -68,7 +68,7 @@ function CardSlider() {
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 }
 
