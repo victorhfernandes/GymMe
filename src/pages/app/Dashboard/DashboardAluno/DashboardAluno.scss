@@ -1,0 +1,56 @@
+.DashboardAluno {
+  &__containner {
+    display: grid;
+    grid-template-columns: 25% 1fr;
+    grid-template-rows: 80px 1fr 80px;
+    grid-template-areas:
+      "navbar navbar"
+      "usuario conteudo"
+      "footer footer";
+  }
+  &__navbar {
+    grid-area: navbar;
+    display: flex;
+    justify-content: space-between;
+    background-color: #000000bf;
+    &__logoNome {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      color: white;
+      &__logo {
+        height: 100%;
+      }
+      &__title {
+        font-size: 3rem;
+      }
+    }
+    &__pesquisa {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      &__select {
+        .css-1dyz3mf {
+          flex-wrap: nowrap;
+          overflow-x: scroll;
+          width: 300px;
+        }
+        .css-1p3m7a8-multiValue {
+          min-width: auto;
+        }
+      }
+    }
+  }
+  &__usuario {
+    grid-area: usuario;
+    background-color: black;
+  }
+  &__conteudo {
+    grid-area: conteudo;
+    background-color: aliceblue;
+  }
+  &__footer {
+    grid-area: footer;
+    background-color: antiquewhite;
+  }
+}

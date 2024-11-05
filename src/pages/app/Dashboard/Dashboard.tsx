@@ -1,17 +1,20 @@
 import { useEffect, useState } from "react";
 import FormAluno from "./FormAluno/FormAluno";
 import FormInstrutor from "./FormInstrutor/FormInstrutor";
+import DashboardAluno from "./DashboardAluno/DashboardAluno";
 
 function Dashboard() {
-  const [isCadastroImcompleto, setIsCadastroImcompleto] = useState();
+  const [isCadastroCompleto, setIsCadastroCompleto] = useState();
   const id = getId();
   const categoria = getCategoria();
 
   async function fetchInfos() {
     const URL = import.meta.env.VITE_API_URL;
-    const response = await fetch(`${URL}/api/${categoria}/${id}`);
+    const response = await fetch(
+      `${URL}/api/${categoria}/${id}?isCadCompleto=true`
+    );
     const data = await response.json();
-    setIsCadastroImcompleto(data);
+    setIsCadastroCompleto(data);
   }
 
   useEffect(() => {
@@ -47,14 +50,16 @@ function Dashboard() {
   }
   return (
     <>
-      {isCadastroImcompleto ? (
+      {!isCadastroCompleto ? (
         categoria === "Aluno" ? (
           <FormAluno categoria={categoria} id={id} />
         ) : (
           <FormInstrutor categoria={categoria} id={id} />
         )
+      ) : categoria === "Aluno" ? (
+        <DashboardAluno />
       ) : (
-        <div>Cadastro completo tela de usuario</div>
+        <div>Cadastro completo tela de Instrutor</div>
       )}
     </>
   );

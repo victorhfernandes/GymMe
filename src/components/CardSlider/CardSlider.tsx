@@ -10,20 +10,20 @@ type instrutoresData = {
 };
 
 function CardSlider() {
-  const [instrutoresData, SetInstrutoresData] = useState<instrutoresData[]>([]);
+  const [instrutoresData, setInstrutoresData] = useState<instrutoresData[]>([]);
 
   async function fetchInstrutores() {
     const sessionData = sessionStorage.getItem("data")
       ? sessionStorage.getItem("data")
       : "";
     if (sessionData) {
-      SetInstrutoresData(JSON.parse(sessionData));
+      setInstrutoresData(JSON.parse(sessionData));
     } else {
       const URL = import.meta.env.VITE_API_URL;
       const response = await fetch(`${URL}/api/instrutor`);
       const data = await response.json();
       const reorganizedData = reorganizeInstrutores(data);
-      SetInstrutoresData(reorganizedData);
+      setInstrutoresData(reorganizedData);
       storeData(reorganizedData);
     }
   }
@@ -34,7 +34,8 @@ function CardSlider() {
   }
 
   function storeData(data: instrutoresData[]) {
-    sessionStorage.setItem("data", JSON.stringify(data));
+    data;
+    //sessionStorage.setItem("data", JSON.stringify(data));
   }
 
   useEffect(() => {

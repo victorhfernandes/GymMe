@@ -68,7 +68,6 @@ function FormInstrutor({ categoria, id }: Props) {
   async function onSubmit(data: FieldInstrutor) {
     const imageUrl = await uploadFile();
     data.foto_perfil = imageUrl;
-    console.log(data);
     const fetchUrl = `${URL}/api/${categoria.toLowerCase()}/cadastro/${id}`;
     const response = await fetch(fetchUrl, {
       headers: {

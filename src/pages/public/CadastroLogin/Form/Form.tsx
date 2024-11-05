@@ -55,7 +55,6 @@ function Form({ categoria, tipo }: Props) {
           throw new Error(responseJson.message);
         }
       } else {
-        //console.log(responseJson);
         if (response.ok) {
           sessionStorage.setItem("authUser", JSON.stringify(responseJson));
           navigate("/app/dashboard");

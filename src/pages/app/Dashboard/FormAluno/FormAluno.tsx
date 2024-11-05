@@ -45,9 +45,10 @@ function FormAluno({ categoria, id }: Props) {
       body: JSON.stringify(data),
     });
     const responseJson = await response.json();
-    console.log(responseJson);
+    if (responseJson) {
+      window.location.reload();
+    }
   }
-  console.log(errors);
 
   return (
     <>
