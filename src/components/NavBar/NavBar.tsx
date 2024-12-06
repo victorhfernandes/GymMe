@@ -12,7 +12,7 @@ function NavBar() {
   }
 
   function closeLinks() {
-    if (windowWidth <= 900) {
+    if (windowWidth <= 1280) {
       setShowNavLinks(false);
     }
   }
@@ -29,7 +29,7 @@ function NavBar() {
   }, []);
 
   useEffect(() => {
-    if (windowWidth > 900) {
+    if (windowWidth > 1280) {
       setShowNavLinks(true);
     } else {
       setShowNavLinks(false);
