@@ -25,6 +25,7 @@ type instrutoresData = {
   nome: string;
   especializacoes: string;
   foto: string;
+  introducao: string;
   especializacao: string[];
 };
 
@@ -289,8 +290,7 @@ function DashboardAluno({ id }: Props) {
                           />
                         )}
                         <span className="Slider__card__intro">
-                          Lorem ipsum dolor, sit amet consectetur adipisicing
-                          elit. Autsdjhosdfoj isdfjiodfsioj jifgiojfjio
+                          {item.introducao}
                         </span>
                         <hr />
                         <div className="Slider__card__especializacoes">
