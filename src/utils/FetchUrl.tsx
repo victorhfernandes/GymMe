@@ -1,6 +1,20 @@
-export async function fetchUrl(fetchUrl: string): Promise<Array<never>> {
+export async function fetchUrl(
+  fetchUrl: string,
+  postData?: any,
+  method = "GET"
+): Promise<any> {
   const URL = import.meta.env.VITE_API_URL;
-  const response = await fetch(`${URL}${fetchUrl}`);
+  const response = await fetch(`${URL}${fetchUrl}`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: method,
+    body: JSON.stringify(postData),
+  });
   const data = await response.json();
-  return data;
+  if (method === "GET") {
+    return data;
+  } else {
+    return response;
+  }
 }

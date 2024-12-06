@@ -1,5 +1,4 @@
-import Separator from "../Separator/Separator";
-import { Link } from "react-router-dom";
+import Separator from "../Separator/Separador";
 import "./Footer.css";
 
 function Footer() {
@@ -8,25 +7,10 @@ function Footer() {
       <Separator />
 
       <footer>
-        <Link className="link" to="/">
-          Inicio
-        </Link>
-        |
-        <Link className="link" to="/instrutores">
-          Instrutores
-        </Link>
-        |
-        <Link className="link" to="/desenvolvedores">
-          Desenvolvedores
-        </Link>
-        |
-        <Link className="link" to="/cadastro">
-          Cadastro
-        </Link>
-        |
-        <Link className="link" to="/dashboard">
-          Login
-        </Link>
+        <p>&copy; 2024 GymMe. Todos os direitos reservados.</p>
+        <p>
+          Desenvolvido por <strong>GymMe│Dev</strong>.
+        </p>
       </footer>
     </>
   );

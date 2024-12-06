@@ -3,6 +3,7 @@ import Form from "./Form/Form";
 import gymmeAluno from "../../../assets/gymme-aluno.png";
 import gymmeInstrutor from "../../../assets/gymme-instrutor.png";
 import "./CadastroLogin.scss";
+import { Link } from "react-router-dom";
 
 type Props = {
   tipo: string;
@@ -58,6 +59,14 @@ function FormAcesso({ tipo }: Props) {
             />
           )}
         </div>
+        <Link
+          className="CadastroLogin__link"
+          to={"/" + (tipo === "Cadastro" ? "login" : "cadastro")}
+        >
+          {tipo === "Cadastro"
+            ? "Já tem conta? Faça Login"
+            : "Não tem conta? Faça seu Cadastro"}
+        </Link>
       </div>
     </>
   );

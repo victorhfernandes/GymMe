@@ -1,8 +1,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { storage } from "../../../../utils/Firebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import "./FormAluno.scss";
 import Modal from "../../../../components/Modal/Modal";
+import { useState } from "react";
+// import { fetchUrl } from "../../../../utils/FetchUrl";
 
 const schemaPostAluno = z.object({
   nm_aluno: z.string().min(1, { message: "Escreva um nome valido!" }),
@@ -13,6 +17,12 @@ const schemaPostAluno = z.object({
   cpf_aluno: z.string().refine((cpf) => validarCPF(cpf), {
     message: "CPF inválido",
   }),
+  doresPeito: z.string(),
+  desequilibrio: z.string(),
+  osseoArticular: z.string(),
+  medicado: z.string(),
+  foto_perfil: z.string().optional(),
+  atestado: z.string().optional(),
 });
 
 type FieldAluno = z.infer<typeof schemaPostAluno>;
@@ -20,9 +30,10 @@ type FieldAluno = z.infer<typeof schemaPostAluno>;
 type Props = {
   categoria: string;
   id: string;
+  closeModal: () => void;
 };
 
-function FormAluno({ categoria, id }: Props) {
+function FormAluno({ categoria, id, closeModal }: Props) {
   const {
     register,
     handleSubmit,
@@ -31,11 +42,34 @@ function FormAluno({ categoria, id }: Props) {
     formState: { errors, isSubmitting },
   } = useForm<FieldAluno>({
     resolver: zodResolver(schemaPostAluno),
+    // defaultValues: async () => fetchUrl(`/api/aluno/${id}`),
   });
+  const [imageUpload, setImageUpload] = useState<File>();
+  const [atestadoUpload, setAtestadoUpload] = useState<File>();
 
   const URL = import.meta.env.VITE_API_URL;
 
+  async function uploadFile(imagem: File | undefined) {
+    const imageRef = ref(
+      storage,
+      `images/${categoria.toLowerCase()}${id}${Math.random()}`
+    );
+    if (imagem) {
+      const snapshot = await uploadBytes(imageRef, imagem);
+      const url = await getDownloadURL(snapshot.ref);
+      const urlSimple = url.split("/o/");
+      return urlSimple[1];
+    }
+    return "";
+  }
+
+  console.log(errors);
+
   async function onSubmit(data: FieldAluno) {
+    const imageUrl = await uploadFile(imageUpload);
+    const atestadoUrl = await uploadFile(atestadoUpload);
+    data.foto_perfil = imageUrl;
+    data.atestado = atestadoUrl;
     const fetchUrl = `${URL}/api/${categoria.toLowerCase()}/cadastro/${id}`;
     const response = await fetch(fetchUrl, {
       headers: {
@@ -52,40 +86,159 @@ function FormAluno({ categoria, id }: Props) {
 
   return (
     <>
-      <Modal>
+      <Modal closeModal={closeModal}>
         <form
           className="FormAluno__containner"
           onSubmit={handleSubmit(onSubmit)}
         >
           {isSubmitting && <p>Carregando...</p>}
-          <input
-            className="FormAluno__input"
-            {...register("nm_aluno")}
-            type="text"
-            placeholder="Nome"
-            autoComplete="on"
-          />
-          <input
-            className="FormAluno__input"
-            {...register("celular_aluno")}
-            type="text"
-            placeholder="Celular"
-            autoComplete="on"
-          />
-          <input
-            className="FormAluno__input"
-            {...register("nascimento_aluno")}
-            type="date"
-            placeholder="Data de Nascimento"
-            autoComplete="on"
-          />
-          <input
-            className="FormAluno__input"
-            {...register("cpf_aluno")}
-            type="text"
-            placeholder="CPF"
-            autoComplete="on"
-          />
+          <label className="FormAluno__label">
+            Nome
+            <input
+              className="FormAluno__input"
+              {...register("nm_aluno")}
+              type="text"
+              placeholder="ex. GymMe"
+              autoComplete="on"
+            />
+          </label>
+          {errors.nm_aluno && (
+            <p className="FormInstrutor__error">{errors.nm_aluno.message}</p>
+          )}
+          <label className="FormAluno__label">
+            Celular
+            <input
+              className="FormAluno__input"
+              {...register("celular_aluno")}
+              type="text"
+              placeholder="(XX) XXXXX-XXXX"
+              autoComplete="on"
+            />
+          </label>
+          {errors.celular_aluno && (
+            <p className="FormInstrutor__error">
+              {errors.celular_aluno.message}
+            </p>
+          )}
+          <label className="FormAluno__label">
+            Data de Nascimento
+            <input
+              className="FormAluno__input"
+              {...register("nascimento_aluno")}
+              type="date"
+              placeholder="Data de Nascimento"
+              autoComplete="on"
+            />
+          </label>
+          {errors.nascimento_aluno && (
+            <p className="FormInstrutor__error">
+              {errors.nascimento_aluno.message}
+            </p>
+          )}
+          <label className="FormAluno__label">
+            CPF
+            <input
+              className="FormAluno__input"
+              {...register("cpf_aluno")}
+              type="text"
+              placeholder="XXX.XXX.XXX-XX"
+              autoComplete="on"
+            />
+          </label>
+          {errors.cpf_aluno && (
+            <p className="FormInstrutor__error">{errors.cpf_aluno.message}</p>
+          )}
+          <label className="FormAluno__label">
+            Sente dores no peito enquanto pratica atividade física?
+            <div className="FormAluno__divlabel">
+              <label className="FormAluno__labelrow">
+                <input type="radio" value="true" {...register("doresPeito")} />
+                Sim
+              </label>
+              <label className="FormAluno__labelrow">
+                <input type="radio" value="false" {...register("doresPeito")} />
+                Não
+              </label>
+            </div>
+          </label>
+          <label className="FormAluno__label">
+            Tem desequilíbrio devido à tontura e/ou perdas de consciência?
+            <div className="FormAluno__divlabel">
+              <label className="FormAluno__labelrow">
+                <input
+                  type="radio"
+                  value="true"
+                  {...register("desequilibrio")}
+                />
+                Sim
+              </label>
+              <label className="FormAluno__labelrow">
+                <input
+                  type="radio"
+                  value="false"
+                  {...register("desequilibrio")}
+                />
+                Não
+              </label>
+            </div>
+          </label>
+          <label className="FormAluno__label">
+            Possui algum problema ósseo ou articular?{" "}
+            <div className="FormAluno__divlabel">
+              <label className="FormAluno__labelrow">
+                <input
+                  type="radio"
+                  value="true"
+                  {...register("osseoArticular")}
+                />
+                Sim
+              </label>
+              <label className="FormAluno__labelrow">
+                <input
+                  type="radio"
+                  value="false"
+                  {...register("osseoArticular")}
+                />
+                Não
+              </label>
+            </div>
+          </label>
+          <label className="FormAluno__label">
+            Toma algum medicamento para pressão arterial ou possui alguma
+            patologia cardíaca?{" "}
+            <div className="FormAluno__divlabel">
+              <label className="FormAluno__labelrow">
+                <input type="radio" value="true" {...register("medicado")} />
+                Sim
+              </label>
+              <label className="FormAluno__labelrow">
+                <input type="radio" value="false" {...register("medicado")} />
+                Não
+              </label>
+            </div>
+          </label>
+          <label className="FormAluno__label">
+            Foto de Perfil
+            <input
+              type="file"
+              onChange={(event) => {
+                if (event.target.files) {
+                  setImageUpload(event.target.files[0]);
+                }
+              }}
+            />
+          </label>
+          <label className="FormAluno__label">
+            Atestado
+            <input
+              type="file"
+              onChange={(event) => {
+                if (event.target.files) {
+                  setAtestadoUpload(event.target.files[0]);
+                }
+              }}
+            />
+          </label>
           <button
             className="FormAluno__button"
             disabled={isSubmitting}

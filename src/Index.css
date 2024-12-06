@@ -1,6 +1,14 @@
+:root {
+  --scrollbar-color-primary: #3c6780;
+  --scrollbar-color-secondary: #f0f0f0;
+  --scrollbar-color-transparent: #00395bbf;
+  --scrollbar-width: 8px;
+  --scrollbar-radius: 1rem;
+}
 * {
   padding: 0;
   margin: 0;
+  box-sizing: border-box;
 }
 
 body {
@@ -9,4 +17,49 @@ body {
   font-family: "Quicksand", "Outfit";
   margin: 0;
   padding: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  border: 0;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.DashboardInstrutor__alunos__overflow,
+.DashboardInstrutor__solicitacoes__overflow {
+  scrollbar-color: var(--scrollbar-color-primary)
+    var(--scrollbar-color-secondary);
+  scrollbar-width: thin;
+}
+
+.DashboardInstrutor__alunos__overflow:hover,
+.DashboardInstrutor__solicitacoes__overflow:hover {
+  scrollbar-color: var(--scrollbar-color-primary)
+    var(--scrollbar-color-secondary);
+}
+
+.DashboardInstrutor__alunos__overflow:active,
+.DashboardInstrutor__solicitacoes__overflow:active {
+  scrollbar-color: var(--scrollbar-color-transparent)
+    var(--scrollbar-color-secondary);
+}
+
+::-webkit-scrollbar {
+  width: var(--scrollbar-width);
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-color-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-color-primary);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  opacity: 0.5;
 }

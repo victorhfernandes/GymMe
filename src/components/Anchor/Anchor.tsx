@@ -3,12 +3,13 @@ import "./Anchor.css";
 
 interface Props {
   href: string;
-  children: ReactNode;
+  className: string;
+  children?: ReactNode;
 }
 
-function A({ href, children }: Props) {
+function A({ href, children, className }: Props) {
   return (
-    <a className="anchor" href={href} target="_blank">
+    <a className={`anchor ${className}`} href={href} target="_blank">
       {children}
     </a>
   );

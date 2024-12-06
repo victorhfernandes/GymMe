@@ -1,0 +1,158 @@
+.PerfilInstrutor {
+  &__voltar {
+    grid-area: voltar;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 0.4rem;
+    padding: 1rem 10rem;
+    font-weight: bold;
+    color: #000000;
+    cursor: pointer;
+    @media (max-width: 80em /*1280px*/) {
+      padding: 0.5rem;
+    }
+    span:nth-child(1) {
+      font-size: 1.6rem;
+    }
+    span:nth-child(2) {
+      font-size: 1.2rem;
+    }
+  }
+  &__containner {
+    display: grid;
+    padding: 0.5rem 10rem;
+    grid-template-columns: 75% 25%;
+    grid-template-rows: 1fr;
+    grid-template-areas: "perfil contatos";
+    @media (max-width: 80em /*1280px*/) {
+      padding: 0.5rem;
+      grid-template-columns: 1fr;
+      grid-template-rows: auto 1fr auto;
+      grid-template-areas:
+        "voltar"
+        "perfil"
+        "contatos";
+    }
+  }
+  &__contatos,
+  &__perfil__infos {
+    background-color: #41a5df4d;
+    border: 1px solid #00395bbf;
+    border-radius: 1rem;
+  }
+  &__perfil {
+    grid-area: perfil;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-right: 2rem;
+    @media (max-width: 80em /*1280px*/) {
+      margin-right: 0;
+      margin-bottom: 1rem;
+    }
+    &__fotonome {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      &__nomenota {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+    &__nome {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    &__foto {
+      width: 10%;
+      border-radius: 50%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      @media (max-width: 80em /*1280px*/) {
+        width: 20%;
+      }
+    }
+    &__azul {
+      font-size: 1rem;
+      font-weight: 600;
+      text-align: center;
+      border-radius: 0.58rem;
+      padding: 0.5em 0;
+      color: #f0f0f0;
+      background-color: #41a5df;
+      width: 35%;
+      @media (max-width: 80em /*1280px*/) {
+        width: 100%;
+      }
+      &:active {
+        opacity: 0.6;
+      }
+    }
+    &__infos {
+      display: flex;
+      flex-direction: column;
+      padding: 2rem;
+      span:nth-child(2),
+      span:nth-child(4),
+      ul:nth-child(4) {
+        font-weight: bold;
+      }
+      &__intro {
+        margin-top: 1rem;
+      }
+      &__top {
+        display: flex;
+        gap: 2rem;
+        @media (max-width: 80em /*1280px*/) {
+          flex-direction: column;
+        }
+        div {
+          display: flex;
+          flex-direction: column;
+          flex: 1;
+          span:nth-child(2),
+          span:nth-child(4),
+          ul:nth-child(4) {
+            margin-bottom: 1rem;
+          }
+        }
+      }
+    }
+  }
+  &__contatos {
+    grid-area: contatos;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 1rem;
+    &__redessociais {
+      display: flex;
+      gap: 1rem;
+      font-size: 2rem;
+    }
+    &__divnumeroemail {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    &__numeroemail {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 2rem;
+      &__numero {
+        font-size: 1rem;
+        font-weight: bold;
+        word-break: break-all;
+      }
+      &__email {
+        font-size: 0.8rem;
+        font-weight: bold;
+        word-break: break-all;
+      }
+    }
+  }
+}

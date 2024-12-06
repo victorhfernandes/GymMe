@@ -1,0 +1,355 @@
+.DashboardInstrutor {
+  &__containner {
+    display: grid;
+    grid-template-columns: 25% 1fr 22%;
+    grid-template-rows: 12vh 1fr 12vh;
+    grid-template-areas:
+      "navbar navbar logout"
+      "usuario alunos solicitacoes"
+      "footer footer footer";
+    @media (max-width: 80em /*1280px*/) and (min-width: 56.25em) {
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: 12vh auto 1fr 12vh;
+      grid-template-areas:
+        "navbar navbar logout"
+        "usuario usuario usuario"
+        "alunos alunos solicitacoes"
+        "footer footer footer";
+    }
+    @media (max-width: 56.25em) {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 12vh auto auto 1fr 12vh;
+      grid-template-areas:
+        "navbar logout"
+        "usuario usuario"
+        "solicitacoes solicitacoes"
+        "alunos alunos"
+        "footer footer";
+    }
+  }
+  &__usuario {
+    grid-area: usuario;
+    padding: 1rem;
+    color: white;
+  }
+  &__alunos {
+    grid-area: alunos;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    background-color: #00395bbf;
+    padding: 1.5rem;
+    margin: 1rem;
+    border-radius: 1rem;
+    text-align: center;
+    color: #ffffff;
+    max-height: 71vh;
+    @media (max-width: 80em) {
+      max-height: 60vh;
+    }
+    &__overflow {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      overflow-y: scroll;
+    }
+    &__titulo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      padding-bottom: 1rem;
+    }
+    &__card {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  }
+  &__aluno {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 0.2rem;
+    &__div {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    &__foto {
+      width: 4rem;
+      border-radius: 50%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      @media (max-width: 56.25em) {
+        width: 20%;
+      }
+    }
+    &__nome {
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+    &__aviso {
+      font-size: 0.8rem;
+      font-weight: bold;
+      text-align: center;
+      border-radius: 0.58rem;
+      padding: 0.5rem 1rem;
+      background-color: #f0f0f0;
+      color: #000000;
+      cursor: default;
+    }
+  }
+  &__planos {
+    grid-area: alunos;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1.5rem;
+    &__header {
+      display: flex;
+      justify-content: space-between;
+      &__titulos {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+      }
+      &__nome {
+        font-size: 1.4rem;
+        font-weight: bold;
+      }
+      &__planilha {
+        font-size: 1.1rem;
+        font-weight: 600;
+      }
+      &__voltar {
+        display: flex;
+        gap: 0.5rem;
+        font-weight: bold;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        &__simbolo {
+          font-size: 1.5rem;
+        }
+      }
+    }
+  }
+  &__treinos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    @media (max-width: 80em /*1280px*/) and (min-width: 56.25em /*900px*/) {
+      grid-template-columns: 1fr 1fr;
+    }
+    @media (max-width: 56.25em /*900px*/) {
+      grid-template-columns: 1fr;
+    }
+  }
+  &__treino2 {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    background-color: #41a5df99;
+    padding: 1rem;
+    border: 1px solid #00395bbf;
+    border-radius: 1rem;
+  }
+  &__treino {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    background-color: #41a5df4d;
+    padding: 1rem;
+    border: 1px solid #00395bbf;
+    border-radius: 1rem;
+    &__titulo {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+    &__botoes,
+    &__infos {
+      display: flex;
+      gap: 1rem;
+      button:nth-child(1),
+      button:nth-child(2) {
+        font-size: 0.8rem;
+        font-weight: bold;
+        text-align: center;
+        border-radius: 0.58rem;
+        padding: 0.3rem 0.6rem;
+        &:active {
+          opacity: 0.6;
+        }
+      }
+      // button:nth-child(2) {
+      //   color: #f0f0f0;
+      //   background-color: #ff7173;
+      // }
+      button:nth-child(1) {
+        color: #f0f0f0;
+        background-color: #41a5df;
+      }
+      button:nth-child(2) {
+        color: #f0f0f0;
+        background-color: #ff7173;
+      }
+    }
+    &__gif {
+      width: 100%;
+      border: 1px solid #00395bbf;
+      border-radius: 1rem;
+      aspect-ratio: 1/1;
+      object-fit: cover;
+    }
+  }
+  &__solicitacoes {
+    grid-area: solicitacoes;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    background-color: #00395bbf;
+    padding: 1rem;
+    margin: 1rem;
+    border-radius: 1rem;
+    text-align: center;
+    color: #ffffff;
+    max-height: 71vh;
+    @media (max-width: 80em) {
+      max-height: 60vh;
+    }
+    &__overflow {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      overflow-y: scroll;
+    }
+    &__titulo {
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+    &__card {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    &__planos {
+      display: flex;
+      flex-direction: column;
+      text-align: start;
+      // align-items: center;
+      gap: 1rem;
+      button:nth-child(1),
+      button:nth-child(2) {
+        font-size: 0.8rem;
+        font-weight: bold;
+        text-align: center;
+        border-radius: 0.58rem;
+        padding: 0.3rem 0.6rem;
+        &:active {
+          opacity: 0.6;
+        }
+      }
+      &__input {
+        all: unset;
+        appearance: auto;
+        border: 0.06rem solid #000000;
+        background-color: #f0f0f0;
+        padding: 0.2rem 0.1rem;
+        border-radius: 0.3rem;
+        color: #000000;
+        width: 100%;
+      }
+      &__buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        button:nth-child(1) {
+          color: #f0f0f0;
+          background-color: #41a5df;
+        }
+        button:nth-child(2) {
+          color: #f0f0f0;
+          background-color: #ff7173;
+        }
+      }
+      &__divnome {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+      &__button {
+        width: 2rem;
+        height: 2rem;
+        background-color: #f0f0f0;
+        border-radius: 50%;
+        cursor: pointer;
+        &__selected {
+          @extend .DashboardInstrutor__solicitacoes__planos__button;
+          background-color: #00395bbf;
+          border: 2px solid #f0f0f0;
+        }
+      }
+    }
+  }
+  &__solicitacao {
+    display: flex;
+    gap: 0.4rem;
+    align-items: center;
+    text-align: left;
+    &__foto {
+      width: 20%;
+      border-radius: 50%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+    }
+    &__nome {
+      font-size: 0.8rem;
+    }
+    &__botoes {
+      display: grid;
+      gap: 0.5rem;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      grid-template-areas:
+        "aceitar recusar"
+        "analisar analisar";
+      &__aceitar,
+      &__recusar,
+      &__analisar {
+        font-size: 0.8rem;
+        font-weight: bold;
+        text-align: center;
+        border-radius: 0.58rem;
+        padding: 0.5rem 0;
+      }
+      &__aceitar {
+        grid-area: aceitar;
+        background-color: #41a5df;
+        color: #ffffff;
+        &:active {
+          opacity: 0.6;
+        }
+      }
+      &__recusar {
+        grid-area: recusar;
+        background-color: #ff7173;
+        color: #ffffff;
+        &:active {
+          opacity: 0.6;
+        }
+      }
+      &__analisar {
+        grid-area: analisar;
+        background-color: #f0f0f0;
+        color: #000000;
+        &:active {
+          opacity: 0.6;
+        }
+      }
+    }
+  }
+  &__footer {
+    grid-area: footer;
+    background-color: #00395bbf;
+  }
+}

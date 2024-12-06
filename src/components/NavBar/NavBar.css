@@ -37,13 +37,13 @@
   color: #41a5df;
 }
 
-@media (max-width: 56.25em) {
+@media (max-width: 80em) {
   .nav-links {
     flex-direction: column;
   }
 }
 
-@media (min-width: 56.25em) {
+@media (min-width: 80em) {
   .nav-links {
     height: auto;
   }

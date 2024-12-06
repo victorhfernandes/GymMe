@@ -53,20 +53,6 @@ function NavBar() {
                 </NavLink>
                 <NavLink
                   className="navlink"
-                  to="/instrutores"
-                  onClick={closeLinks}
-                >
-                  Instrutores
-                </NavLink>
-                <NavLink
-                  className="navlink"
-                  to="/desenvolvedores"
-                  onClick={closeLinks}
-                >
-                  Desenvolvedores
-                </NavLink>
-                <NavLink
-                  className="navlink"
                   to="/cadastro"
                   onClick={closeLinks}
                 >

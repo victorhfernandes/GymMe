@@ -8,7 +8,7 @@
       "left-top right"
       "left-bottom right";
     justify-content: center;
-    @media (max-width: 56.25em /*900px*/) {
+    @media (max-width: 80em /*1280px*/) {
       grid-template-columns: 1fr;
       grid-template-rows: auto 8rem 1fr;
       grid-template-areas:
@@ -53,9 +53,12 @@
     align-items: center;
     &__gymme {
       width: 350px;
-      @media (max-width: 56.25em /*900px*/) {
+      @media (max-width: 80em /*1280px*/) {
         width: 150px;
       }
     }
+  }
+  &__link {
+    margin-top: 1rem;
   }
 }

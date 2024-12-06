@@ -1,9 +1,10 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./Form.scss";
 import { useNavigate } from "react-router-dom";
+import Modal from "../../../../components/Modal/Modal";
 
 const schemaPost = z.object({
   email: z.string().email({ message: "Email invalido!" }),
@@ -11,6 +12,12 @@ const schemaPost = z.object({
     .string()
     .min(8, { message: "Senha deve conter no minimo 8 caracteres" })
     .max(30, { message: "Senha deve conter no maximo 30 caracteres" }),
+  termos: z
+    .boolean()
+    .refine(
+      (value) => value === true,
+      "Você deve concordar com os termos de uso!"
+    ),
 });
 
 type FormFields = z.infer<typeof schemaPost>;
@@ -21,6 +28,9 @@ type Props = {
 };
 
 function Form({ categoria, tipo }: Props) {
+  const [isModalAlert, setisModalAlert] = useState(false);
+  const [modalMsg, setModalMsg] = useState("");
+  const isTermos = tipo === "cadastro" ? false : true;
   const {
     register,
     handleSubmit,
@@ -29,6 +39,9 @@ function Form({ categoria, tipo }: Props) {
     formState: { errors, isSubmitting },
   } = useForm<FormFields>({
     resolver: zodResolver(schemaPost),
+    defaultValues: {
+      termos: isTermos,
+    },
   });
   const navigate = useNavigate();
   const URL = import.meta.env.VITE_API_URL;
@@ -49,7 +62,8 @@ function Form({ categoria, tipo }: Props) {
 
       if (tipo === "cadastro") {
         if (response.ok) {
-          alert("Cadastro feito com sucesso!");
+          setisModalAlert(true);
+          setModalMsg("Cadastro feito com sucesso!");
           navigate("/login");
         } else {
           throw new Error(responseJson.message);
@@ -112,33 +126,70 @@ function Form({ categoria, tipo }: Props) {
     }
   }
 
+  function closeModal() {
+    setisModalAlert(false);
+  }
+
   useEffect(() => {
     clearErrors();
   }, [categoria, tipo]);
 
   return (
-    <form className="Form__containner" onSubmit={handleSubmit(onSubmit)}>
-      {errors.root && <p className="Form__error">{errors.root.message}</p>}
-      {isSubmitting && <p>Carregando...</p>}
-      <input
-        className={highlightInputError(!!errors.email)}
-        {...register("email")}
-        type="text"
-        placeholder="Email"
-        autoComplete="on"
-      />
-      {errors.email && <p className="Form__error">{errors.email.message}</p>}
-      <input
-        className={highlightInputError(!!errors.senha)}
-        {...register("senha")}
-        type="password"
-        placeholder="Senha"
-      />
-      {errors.senha && <p className="Form__error">{errors.senha.message}</p>}
-      <button className="Form__button" disabled={isSubmitting} type="submit">
-        Enviar
-      </button>
-    </form>
+    <>
+      {isModalAlert && (
+        <Modal>
+          <div className="Modal__alert">
+            <span>{modalMsg}</span>
+            <button onClick={closeModal} className="Modal__alert__botao">
+              OK
+            </button>
+          </div>
+        </Modal>
+      )}
+      <form className="Form__containner" onSubmit={handleSubmit(onSubmit)}>
+        {errors.root && <p className="Form__error">{errors.root.message}</p>}
+        {isSubmitting && <p>Carregando...</p>}
+        <label className="Form__label">
+          Email
+          <input
+            className={highlightInputError(!!errors.email)}
+            {...register("email")}
+            type="text"
+            placeholder="Email"
+            autoComplete="on"
+          />
+        </label>
+        {errors.email && <p className="Form__error">{errors.email.message}</p>}
+        <label className="Form__label">
+          Senha
+          <input
+            className={highlightInputError(!!errors.senha)}
+            {...register("senha")}
+            type="password"
+            placeholder="Senha"
+          />
+        </label>
+        {errors.senha && <p className="Form__error">{errors.senha.message}</p>}
+        {tipo === "cadastro" && (
+          <>
+            <label className="Form__labelrow">
+              <input
+                type="checkbox"
+                placeholder="termos"
+                {...register("termos", {})}
+              />
+              Concordo com os Termos de Uso
+            </label>
+            {errors.termos && (
+              <p className="Form__error">{errors.termos.message}</p>
+            )}
+          </>
+        )}
+        <button className="Form__button" disabled={isSubmitting} type="submit">
+          Enviar
+        </button>
+      </form>
+    </>
   );
 }
 

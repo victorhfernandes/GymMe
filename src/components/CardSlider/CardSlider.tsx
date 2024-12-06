@@ -29,7 +29,9 @@ function CardSlider() {
   }
 
   function reorganizeInstrutores(data: instrutoresData[]) {
-    data.map((item) => (item.especializacao = item.especializacoes.split(";")));
+    data.map(
+      (item) => (item.especializacao = item.especializacoes.split("; "))
+    );
     return data;
   }
 
@@ -48,23 +50,31 @@ function CardSlider() {
       <div className="Slider__containner">
         {instrutoresData.map((item, index) => (
           <div className="Slider__cards" key={index}>
-            {item.foto ? (
-              <img
-                className="Slider__cards__picture"
-                src={`https://firebasestorage.googleapis.com/v0/b/gymme-9c815.appspot.com/o/${item.foto}`}
-                alt=""
-              />
-            ) : (
-              <img className="Slider__cards__picture" src={gymme} alt="" />
-            )}
-            <h2>{item.nome}</h2>
-            <h3>Especializações</h3>
-            <div className="Slider__cards__especializacoes">
-              {item.especializacao.map((item, index) => (
-                <p key={index} className="Slider__cards__especializacao">
-                  {item}
-                </p>
-              ))}
+            <div className="Slider__card">
+              <span className="Slider__card__titulo">
+                {item.nome.toUpperCase()}
+              </span>
+              {item.foto ? (
+                <img
+                  className="Slider__card__picture"
+                  src={`https://firebasestorage.googleapis.com/v0/b/gymme-9c815.appspot.com/o/${item.foto}`}
+                  alt=""
+                />
+              ) : (
+                <img className="Slider__card__picture" src={gymme} alt="" />
+              )}
+              <span className="Slider__card__intro">
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                Autsdjhosdfoj isdfjiodfsioj jifgiojfjio
+              </span>
+              <hr />
+              <div className="Slider__card__especializacoes">
+                {item.especializacao.map((item, index) => (
+                  <p key={index} className="Slider__card__especializacao">
+                    {"#" + item}
+                  </p>
+                ))}
+              </div>
             </div>
           </div>
         ))}

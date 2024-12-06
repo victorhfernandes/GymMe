@@ -21,6 +21,15 @@
       border: 0.06rem solid #de4046;
     }
   }
+  &__label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+  &__labelrow {
+    display: flex;
+    gap: 0.5rem;
+  }
   &__button {
     background-color: #41a5df;
     text-decoration: none;
