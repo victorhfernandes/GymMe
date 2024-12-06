@@ -29,21 +29,18 @@ button {
   cursor: pointer;
 }
 
-.DashboardInstrutor__alunos__overflow,
-.DashboardInstrutor__solicitacoes__overflow {
+* {
   scrollbar-color: var(--scrollbar-color-primary)
     var(--scrollbar-color-secondary);
   scrollbar-width: thin;
 }
 
-.DashboardInstrutor__alunos__overflow:hover,
-.DashboardInstrutor__solicitacoes__overflow:hover {
+*:hover {
   scrollbar-color: var(--scrollbar-color-primary)
     var(--scrollbar-color-secondary);
 }
 
-.DashboardInstrutor__alunos__overflow:active,
-.DashboardInstrutor__solicitacoes__overflow:active {
+*:active {
   scrollbar-color: var(--scrollbar-color-transparent)
     var(--scrollbar-color-secondary);
 }
