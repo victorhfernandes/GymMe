@@ -12,7 +12,6 @@ function Modal({ children, closeModal }: Props) {
   function onShow() {
     dialogRef.current?.showModal();
   }
-  console.log(closeModal);
 
   // function onClose() {
   //   dialogRef.current?.close();

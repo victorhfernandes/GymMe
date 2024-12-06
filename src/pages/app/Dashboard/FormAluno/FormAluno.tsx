@@ -63,8 +63,6 @@ function FormAluno({ categoria, id, closeModal }: Props) {
     return "";
   }
 
-  console.log(errors);
-
   async function onSubmit(data: FieldAluno) {
     const imageUrl = await uploadFile(imageUpload);
     const atestadoUrl = await uploadFile(atestadoUpload);
