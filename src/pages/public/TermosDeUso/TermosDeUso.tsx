@@ -2,12 +2,12 @@ import "./TermosDeUso.scss";
 
 function TermosDeUso() {
   return (
-    <div>
-      <h1>TERMOS DE USO E CONDIÇÕES DA UTILIZAÇÃO DA APLICAÇÃO WEB GYMMe</h1>
+    <div className="Termos__containner">
+      <h1>TERMOS DE USO E CONDIÇÕES DA UTILIZAÇÃO DA APLICAÇÃO WEB GYMME</h1>
 
-      <h2>1. DOS USOS DOS SERVIÇOS DISPONIBILIDADOS PELA GYMMe</h2>
+      <h2>1. DOS USOS DOS SERVIÇOS DISPONIBILIDADOS PELA GYMME</h2>
       <p>
-        <strong>1.1.</strong> Para utilizar os serviços da plataforma GYMMe você
+        <strong>1.1.</strong> Para utilizar os serviços da plataforma GymMe você
         deve ter uma conta pessoal cadastrada, e ter no mínimo 18 anos de idade,
         usuários de idade inferior à 18 e igual ou superior à 12 anos só poderão
         se cadastrar mediante à autorização de seu(s) responsável(is) legal(is).
@@ -15,7 +15,7 @@ function TermosDeUso() {
         não sendo admitidos menores de idade com cadastro de instrutor.
       </p>
       <p>
-        <strong>1.2.</strong> O cadastro de usuário na plataforma GYMMe exigirá
+        <strong>1.2.</strong> O cadastro de usuário na plataforma GymMe exigirá
         a coleta, análise e processamento de dados pessoais como nome completo,
         CPF, data de nascimento, número de telefone.
       </p>
@@ -39,7 +39,7 @@ function TermosDeUso() {
         responsabilidade pelas informações pessoais cadastradas na plataforma.
       </p>
       <p>
-        <strong>2.2.</strong> A plataforma GYMMe se exime da responsabilidade
+        <strong>2.2.</strong> A plataforma GymMe se exime da responsabilidade
         por quaisquer problemas, que venham a ocorrer com os dados dos usuários
         cadastrados na plataforma.
       </p>
@@ -77,35 +77,35 @@ function TermosDeUso() {
         quaisquer conteúdos publicados por estes na plataforma.
       </p>
 
-      <h2>4. DOS LIMITES DE RESPONSABILIDADE DA PLATAFORMA GYMMe</h2>
+      <h2>4. DOS LIMITES DE RESPONSABILIDADE DA PLATAFORMA GYMME</h2>
       <p>
-        <strong>4.1.</strong> GYMMe não se responsabilizará por danos indiretos,
+        <strong>4.1.</strong> GymMe não se responsabilizará por danos indiretos,
         punitivos, de lucro, perda de dados, danos morais ou patrimoniais
         referentes a qualquer uso de serviços ainda que a plataforma tenha sido
         informada sobre estas possibilidades.
       </p>
       <p>
-        <strong>4.2.</strong> GYMMe não se responsabilizará por quaisquer
+        <strong>4.2.</strong> GymMe não se responsabilizará por quaisquer
         prejuízos ocasionados por falhas no sistema, usos do serviço ou a
         incapacidade do usuário acessar a plataforma ainda que a plataforma
         tenha sido informada sobre estas possibilidades.
       </p>
       <p>
-        <strong>4.3.</strong> GYMMe não se responsabiliza pelas falhas ou
+        <strong>4.3.</strong> GymMe não se responsabiliza pelas falhas ou
         atrasos de serviços causadas por fatores fora do controle razoável da
         plataforma.
       </p>
       <p>
-        <strong>4.4.</strong> GYMMe se exime da responsabilidade da integridade
+        <strong>4.4.</strong> GymMe se exime da responsabilidade da integridade
         e/ou qualidade serviços ofertados pelos seus parceiros.
       </p>
       <p>
-        <strong>4.5.</strong> GYMMe não tem responsabilidade em relação aos
+        <strong>4.5.</strong> GymMe não tem responsabilidade em relação aos
         usuários, por conta de qualquer serviço realizado por instrutores
         parceiros.
       </p>
       <p>
-        <strong>4.6.</strong> GYMMe se exime da responsabilidade de quaisquer
+        <strong>4.6.</strong> GymMe se exime da responsabilidade de quaisquer
         eventuais danos morais, materiais, e/ou físicos que possam ocorrer com
         qualquer usuário no contato entre o usuário aluno e usuário instrutor
         fora da plataforma.
@@ -120,22 +120,22 @@ function TermosDeUso() {
         está sob total e completa responsabilidade do(s) seu(s) respectivos
         responsável(is) legal(is), ficando à cargo do(s) responsável(is)
         legal(is) conferir a segurança e monitoramento do usuário menor de
-        idade, eximindo GYMMe de quaisquer responsabilidades sobre o usuário
+        idade, eximindo GymMe de quaisquer responsabilidades sobre o usuário
         menor de idade.
       </p>
       <p>
-        <strong>4.9.</strong> GYMMe exime-se de quaisquer malefícios gerados por
+        <strong>4.9.</strong> GymMe exime-se de quaisquer malefícios gerados por
         utilização de contas falsas criadas na plataforma.
       </p>
       <p>
         <strong>4.10.</strong> O site contém links para sites de terceiros e,
-        caso você navegue para um site de terceiros a partir do GYMMe, quaisquer
+        caso você navegue para um site de terceiros a partir do GymMe, quaisquer
         dados que você fornecer a esse site e qualquer uso desses dados pelo
-        terceiro não estão sob o controle da plataforma GYMMe e não estão
+        terceiro não estão sob o controle da plataforma GymMe e não estão
         sujeitos a esta política. Você deverá consultar as políticas de
         privacidade de cada site que visitar. Esta Política se aplica
         exclusivamente às informações pessoais coletadas pelo nosso Site. Caso
-        publique em uma rede social e referencie a plataforma GYMMe, sua
+        publique em uma rede social e referencie a plataforma GymMe, sua
         publicação estará sujeita aos termos de uso e à política de privacidade
         dessa rede social. Não dispomos controle sobre esses termos de uso e
         políticas de privacidade e não revisamos sua adequação. Portanto, você
@@ -146,15 +146,15 @@ function TermosDeUso() {
         5. DAS PRESTAÇÕES DE SERVIÇOS FORNECIDAS PELOS INSTRUTORES PARCEIROS
       </h2>
       <p>
-        <strong>5.1.</strong> GYMMe não se responsabiliza por quaisquer danos
+        <strong>5.1.</strong> GymMe não se responsabiliza por quaisquer danos
         sofridos pelo instrutor parceiro em caso de cópia, transferência,
         distribuição ou qualquer outra forma de utilização de conteúdo protegido
         disponibilizado dentro da plataforma.
       </p>
       <p>
         <strong>5.2.</strong> É inexistente a relação de trabalho, vínculo de
-        emprego e outros entre GYMMe e instrutores parceiros. Não se estabelece
-        entre o instrutor parceiro e a GYMMe qualquer vínculo de natureza
+        emprego e outros entre GymMe e instrutores parceiros. Não se estabelece
+        entre o instrutor parceiro e a GymMe qualquer vínculo de natureza
         societária, empregatícia e/ou econômica, sendo o instrutor parceiro
         livre para realizar serviços quando quiser, assim como cessar a
         utilização do aplicativo a qualquer momento.
@@ -170,9 +170,9 @@ function TermosDeUso() {
         da plataforma.
       </p>
 
-      <h2>6. DAS OBRIGAÇÕES DA PLATAFORMA GYMMe</h2>
+      <h2>6. DAS OBRIGAÇÕES DA PLATAFORMA GymMe</h2>
       <p>
-        <strong>6.1.</strong> A equipe de desenvolvimento da plataforma GYMMe
+        <strong>6.1.</strong> A equipe de desenvolvimento da plataforma GymMe
         fica responsável por realizar a manutenção da aplicação web e responder
         a quaisquer questionamentos referentes ao mal funcionamento, falhas no
         sistema, ineficiência causado por erro técnico que prejudique a
@@ -207,7 +207,7 @@ function TermosDeUso() {
         informações pessoais de terceiros sem o consentimento.
       </p>
       <p>
-        <strong>7.6.</strong> A plataforma GYMMe não pode ser usada para
+        <strong>7.6.</strong> A plataforma GymMe não pode ser usada para
         propósitos ilegais, garantindo banimento se constatada uma infração de
         lei dentro da plataforma.
       </p>
