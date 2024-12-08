@@ -73,13 +73,60 @@ function FormInstrutor({ categoria, id, closeModal }: Props) {
     formState: { errors, isSubmitting },
   } = useForm<FieldInstrutor>({
     resolver: zodResolver(schemaPostInstrutor),
-    defaultValues: async () => fetchUrl(`/api/instrutor/${id}?compl=true`),
+    defaultValues: async () => fetchDefaultValues(),
   });
 
   const URL = import.meta.env.VITE_API_URL;
 
+  async function fetchDefaultValues() {
+    const data = await fetchUrl(`/api/instrutor/${id}?compl=false`);
+
+    let {
+      id_instrutor,
+      // intro_instrutor,
+      nm_instrutor,
+      nascimento_instrutor,
+      // email_instrutor,
+      celular_instrutor,
+      cref_instrutor,
+      cpf_instrutor,
+      foto_perfil,
+      especializacoes,
+      certificacoes,
+      experiencias,
+      // links,
+      cidades,
+    } = data;
+
+    nascimento_instrutor = nascimento_instrutor.split("T")[0];
+
+    const organizedData = {
+      id_instrutor,
+      // intro_instrutor,
+      nm_instrutor,
+      nascimento_instrutor,
+      // email_instrutor,
+      celular_instrutor,
+      cref_instrutor,
+      cpf_instrutor,
+      foto_perfil,
+      especializacoes,
+      certificacoes,
+      experiencias,
+      // links,
+      cidades,
+    };
+
+    return organizedData;
+  }
+
   async function uploadFile() {
-    const imageRef = ref(storage, `images/${categoria.toLowerCase()}${id}`);
+    const imageRef = ref(
+      storage,
+      `images/${categoria.toLowerCase()}${id}${
+        new Date().toISOString() + Math.floor(Math.random() * 10000000000)
+      }`
+    );
     if (imageUpload) {
       const snapshot = await uploadBytes(imageRef, imageUpload);
       const url = await getDownloadURL(snapshot.ref);
@@ -91,7 +138,9 @@ function FormInstrutor({ categoria, id, closeModal }: Props) {
 
   async function onSubmit(data: FieldInstrutor) {
     const imageUrl = await uploadFile();
-    data.foto_perfil = imageUrl;
+    if (!(imageUrl === "")) {
+      data.foto_perfil = imageUrl;
+    }
     const fetchUrl = `${URL}/api/instrutor/cadastro/${id}`;
     const response = await fetch(fetchUrl, {
       headers: {
