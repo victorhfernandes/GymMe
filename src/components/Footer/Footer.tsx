@@ -1,4 +1,3 @@
-import Separator from "../Separator/Separador";
 import "./Footer.css";
 
 function Footer() {
