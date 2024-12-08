@@ -22,6 +22,17 @@ type alunosData = {
   id_servico: number;
 };
 
+type Analise = {
+  nm_aluno: string;
+  foto_perfil: string | null;
+  atestado: string | null;
+  nascimento_aluno: string;
+  doresPeito: boolean;
+  desequilibrio: boolean;
+  osseoArticular: boolean;
+  medicado: boolean;
+};
+
 type Props = {
   id: string;
   setAlunoData: Dispatch<SetStateAction<alunoData | null>>;
@@ -31,6 +42,8 @@ type Props = {
 function AlunosSolicitacoes({ id, setAlunoData, setIdServico }: Props) {
   const [alunosData, setAlunosData] = useState<alunosData[]>();
   const [solicitacoes, setSolicitacoes] = useState<alunosData[]>();
+  const [isModalAnalise, setisModalAnalise] = useState(true);
+  const [analise, setAnalise] = useState<Analise>();
   const [isModalAlert, setisModalAlert] = useState(false);
   const [modalMsg, setModalMsg] = useState("");
   const FIREBASE_URL = import.meta.env.VITE_FIREBASE_URL;
@@ -43,6 +56,11 @@ function AlunosSolicitacoes({ id, setAlunoData, setIdServico }: Props) {
   async function fetchSolicitacoes() {
     const data = await fetchUrl(`/api/instrutor/servico/${id}&null`);
     setSolicitacoes(data);
+  }
+
+  async function fetchAnalise(idAluno: number) {
+    const data = await fetchUrl(`/api/aluno/analise/${idAluno}`);
+    setAnalise(data);
   }
 
   async function updateStatus(idAluno: number, status: boolean) {
@@ -68,6 +86,28 @@ function AlunosSolicitacoes({ id, setAlunoData, setIdServico }: Props) {
     setisModalAlert(false);
   }
 
+  function calcularIdade(dataNascimento: string) {
+    const hoje = new Date();
+    const nascimento = new Date(dataNascimento);
+
+    let idade = hoje.getFullYear() - nascimento.getFullYear();
+    const mesAtual = hoje.getMonth();
+    const diaAtual = hoje.getDate();
+
+    const mesNascimento = nascimento.getMonth();
+    const diaNascimento = nascimento.getDate();
+
+    // Ajuste caso o aniversário não tenha ocorrido ainda este ano
+    if (
+      mesAtual < mesNascimento ||
+      (mesAtual === mesNascimento && diaAtual < diaNascimento)
+    ) {
+      idade--;
+    }
+
+    return idade;
+  }
+
   useEffect(() => {
     fetchAlunos();
     fetchSolicitacoes();
@@ -85,6 +125,65 @@ function AlunosSolicitacoes({ id, setAlunoData, setIdServico }: Props) {
           </div>
         </Modal>
       )}
+      {analise && (
+        <Modal closeModal={() => setAnalise(undefined)}>
+          <div className="DashboardInstrutor__analise">
+            <div className="DashboardInstrutor__analise__infos">
+              {analise.foto_perfil ? (
+                <img
+                  className="DashboardInstrutor__analise__foto"
+                  src={FIREBASE_URL + analise.foto_perfil}
+                />
+              ) : (
+                <img
+                  className="DashboardInstrutor__analise__foto"
+                  src={aluno}
+                />
+              )}
+              <span className="DashboardInstrutor__analise__nome">
+                Anamnese de <strong>{analise.nm_aluno}</strong>
+              </span>
+            </div>
+            <Separador />
+            <span>
+              <strong>Idade:</strong> {calcularIdade(analise.nascimento_aluno)}{" "}
+              anos
+            </span>
+            <div className="DashboardInstrutor__analise__perguntas">
+              <span>
+                Sente dores no peito enquanto pratica atividade física?
+              </span>
+              <span>
+                {analise.doresPeito ? "Sim (X) Não ( )" : "Sim ( ) Não (X)"}
+              </span>
+            </div>
+            <div className="DashboardInstrutor__analise__perguntas">
+              <span>
+                Tem desequilíbrio devido à tontura e/ou perdas de consciência?
+              </span>
+              <span>
+                {analise.desequilibrio ? "Sim (X) Não ( )" : "Sim ( ) Não (X)"}
+              </span>
+            </div>
+            <div className="DashboardInstrutor__analise__perguntas">
+              <span>Possui algum problema ósseo ou articular?</span>
+              <span>
+                {analise.osseoArticular ? "Sim (X) Não ( )" : "Sim ( ) Não (X)"}
+              </span>
+            </div>
+            <div className="DashboardInstrutor__analise__perguntas">
+              <span>
+                Toma algum medicamento para pressão arterial ou possui alguma
+                patologia cardíaca?
+              </span>
+              <span>
+                {analise.medicado ? "Sim (X) Não ( )" : "Sim ( ) Não (X)"}
+              </span>
+            </div>
+          </div>
+        </Modal>
+      )}
+
       <div className="DashboardInstrutor__alunos">
         <span className="DashboardInstrutor__alunos__titulo">MEUS ALUNOS</span>
         <Separador />
@@ -176,7 +275,10 @@ function AlunosSolicitacoes({ id, setAlunoData, setIdServico }: Props) {
                   >
                     RECUSAR
                   </button>
-                  <button className="DashboardInstrutor__solicitacao__botoes__analisar">
+                  <button
+                    className="DashboardInstrutor__solicitacao__botoes__analisar"
+                    onClick={() => fetchAnalise(Number(item.id_aluno))}
+                  >
                     ANALISAR
                   </button>
                 </div>
