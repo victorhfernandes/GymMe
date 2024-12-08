@@ -6,21 +6,21 @@ import { z } from "zod";
 import "./FormAluno.scss";
 import Modal from "../../../../components/Modal/Modal";
 import { useState } from "react";
-// import { fetchUrl } from "../../../../utils/FetchUrl";
+import { fetchUrl } from "../../../../utils/FetchUrl";
 
 const schemaPostAluno = z.object({
   nm_aluno: z.string().min(1, { message: "Escreva um nome valido!" }),
   celular_aluno: z.string().regex(/^\(?\d{2}\)?\s?\d{5}-?\d{4}$/, {
     message: "Número de celular inválido!",
   }),
-  nascimento_aluno: z.string().date(),
+  nascimento_aluno: z.string().date("Data inválida!"),
   cpf_aluno: z.string().refine((cpf) => validarCPF(cpf), {
-    message: "CPF inválido",
+    message: "CPF inválido!",
   }),
-  doresPeito: z.string(),
-  desequilibrio: z.string(),
-  osseoArticular: z.string(),
-  medicado: z.string(),
+  doresPeito: z.string({ message: "Pergunta obrigatoria!" }),
+  desequilibrio: z.string({ message: "Pergunta obrigatoria!" }),
+  osseoArticular: z.string({ message: "Pergunta obrigatoria!" }),
+  medicado: z.string({ message: "Pergunta obrigatoria!" }),
   foto_perfil: z.string().optional(),
   atestado: z.string().optional(),
 });
@@ -42,17 +42,56 @@ function FormAluno({ categoria, id, closeModal }: Props) {
     formState: { errors, isSubmitting },
   } = useForm<FieldAluno>({
     resolver: zodResolver(schemaPostAluno),
-    // defaultValues: async () => fetchUrl(`/api/aluno/${id}`),
+    defaultValues: async () => fetchDefaultValues(),
   });
   const [imageUpload, setImageUpload] = useState<File>();
   const [atestadoUpload, setAtestadoUpload] = useState<File>();
 
   const URL = import.meta.env.VITE_API_URL;
 
+  async function fetchDefaultValues() {
+    const data = await fetchUrl(`/api/aluno/${id}?compl=true`);
+    let {
+      nm_aluno,
+      celular_aluno,
+      nascimento_aluno,
+      cpf_aluno,
+      doresPeito,
+      desequilibrio,
+      osseoArticular,
+      medicado,
+      foto_perfil,
+      atestado,
+    } = data;
+
+    doresPeito = doresPeito.toString();
+    desequilibrio = desequilibrio.toString();
+    osseoArticular = osseoArticular.toString();
+    medicado = medicado.toString();
+    nascimento_aluno = nascimento_aluno.split("T")[0];
+
+    const organizedData = {
+      nm_aluno,
+      celular_aluno,
+      nascimento_aluno,
+      cpf_aluno,
+      doresPeito,
+      desequilibrio,
+      osseoArticular,
+      medicado,
+      foto_perfil,
+      atestado,
+    };
+
+    return organizedData;
+  }
+
   async function uploadFile(imagem: File | undefined) {
     const imageRef = ref(
       storage,
-      `images/${categoria.toLowerCase()}${id}${Math.random()}`
+      `images/${categoria.toLowerCase()}${id}${
+        new Date().toISOString() + Math.floor(Math.random() * 10000000000)
+      }`
     );
     if (imagem) {
       const snapshot = await uploadBytes(imageRef, imagem);
@@ -66,8 +105,14 @@ function FormAluno({ categoria, id, closeModal }: Props) {
   async function onSubmit(data: FieldAluno) {
     const imageUrl = await uploadFile(imageUpload);
     const atestadoUrl = await uploadFile(atestadoUpload);
-    data.foto_perfil = imageUrl;
-    data.atestado = atestadoUrl;
+    if (!(atestadoUrl === "")) {
+      data.atestado = atestadoUrl;
+    }
+
+    if (!(imageUrl === "")) {
+      data.foto_perfil = imageUrl;
+    }
+
     const fetchUrl = `${URL}/api/${categoria.toLowerCase()}/cadastro/${id}`;
     const response = await fetch(fetchUrl, {
       headers: {
@@ -159,6 +204,9 @@ function FormAluno({ categoria, id, closeModal }: Props) {
               </label>
             </div>
           </label>
+          {errors.doresPeito && (
+            <p className="FormInstrutor__error">{errors.doresPeito.message}</p>
+          )}
           <label className="FormAluno__label">
             Tem desequilíbrio devido à tontura e/ou perdas de consciência?
             <div className="FormAluno__divlabel">
@@ -170,6 +218,7 @@ function FormAluno({ categoria, id, closeModal }: Props) {
                 />
                 Sim
               </label>
+
               <label className="FormAluno__labelrow">
                 <input
                   type="radio"
@@ -180,6 +229,11 @@ function FormAluno({ categoria, id, closeModal }: Props) {
               </label>
             </div>
           </label>
+          {errors.desequilibrio && (
+            <p className="FormInstrutor__error">
+              {errors.desequilibrio.message}
+            </p>
+          )}
           <label className="FormAluno__label">
             Possui algum problema ósseo ou articular?{" "}
             <div className="FormAluno__divlabel">
@@ -201,6 +255,11 @@ function FormAluno({ categoria, id, closeModal }: Props) {
               </label>
             </div>
           </label>
+          {errors.osseoArticular && (
+            <p className="FormInstrutor__error">
+              {errors.osseoArticular.message}
+            </p>
+          )}
           <label className="FormAluno__label">
             Toma algum medicamento para pressão arterial ou possui alguma
             patologia cardíaca?{" "}
@@ -215,6 +274,9 @@ function FormAluno({ categoria, id, closeModal }: Props) {
               </label>
             </div>
           </label>
+          {errors.medicado && (
+            <p className="FormInstrutor__error">{errors.medicado.message}</p>
+          )}
           <label className="FormAluno__label">
             Foto de Perfil
             <input
