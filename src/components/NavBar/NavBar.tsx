@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "./NavBar.css";
 import Hamburguer from "../Hamburger/Hamburger";
 
@@ -39,7 +39,11 @@ function NavBar() {
   return (
     <>
       <div className="navbar">
-        <div className="nav-title">GymMe</div>
+        <div className="nav-title">
+          <Link className="link" to="/" onClick={closeLinks}>
+            GymMe
+          </Link>
+        </div>
         <div className="nav-left">
           <div onClick={handleHamburger}>
             <Hamburguer />
