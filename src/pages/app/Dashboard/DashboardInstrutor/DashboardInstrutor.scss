@@ -2,7 +2,7 @@
   &__containner {
     display: grid;
     grid-template-columns: 25% 1fr 22%;
-    grid-template-rows: 12vh 1fr 12vh;
+    grid-template-rows: 12vh 1fr auto;
     grid-template-areas:
       "navbar navbar logout"
       "usuario alunos solicitacoes"
