@@ -9,6 +9,7 @@
       "left-bottom right";
     justify-content: center;
     @media (max-width: 80em /*1280px*/) {
+      padding: 1rem;
       grid-template-columns: 1fr;
       grid-template-rows: auto 8rem 1fr;
       grid-template-areas:

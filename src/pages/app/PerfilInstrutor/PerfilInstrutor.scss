@@ -26,7 +26,7 @@
     grid-template-rows: 1fr;
     grid-template-areas: "perfil contatos";
     @media (max-width: 80em /*1280px*/) {
-      padding: 0.5rem;
+      padding: 1rem;
       grid-template-columns: 1fr;
       grid-template-rows: auto 1fr auto;
       grid-template-areas:
