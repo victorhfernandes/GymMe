@@ -29,6 +29,10 @@ button {
   cursor: pointer;
 }
 
+.link-no-purple:visited {
+  color: #3366cc;
+}
+
 * {
   scrollbar-color: var(--scrollbar-color-primary)
     var(--scrollbar-color-secondary);

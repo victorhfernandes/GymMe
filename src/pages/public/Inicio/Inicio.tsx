@@ -23,7 +23,9 @@ function Inicio() {
             </p>
           </div>
           <button className="Inicio__conteudo__cadastro">
-            <Link to="cadastro">Cadastre-se</Link>
+            <Link to="cadastro" className="link-no-purple">
+              Cadastre-se
+            </Link>
           </button>
         </div>
         <div className="Inicio__sobre">

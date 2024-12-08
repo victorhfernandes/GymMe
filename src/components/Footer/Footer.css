@@ -17,6 +17,11 @@ footer {
   text-decoration: none;
 }
 
+.link:visited {
+  color: #000000;
+  text-decoration: none;
+}
+
 .link:hover {
   color: #41a5df;
 }

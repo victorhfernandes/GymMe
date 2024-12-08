@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useEffect, useState } from "react";
 import "./Form.scss";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Modal from "../../../../components/Modal/Modal";
 
 const schemaPost = z.object({
@@ -30,21 +30,24 @@ type Props = {
 function Form({ categoria, tipo }: Props) {
   const [isModalAlert, setisModalAlert] = useState(false);
   const [modalMsg, setModalMsg] = useState("");
-  const isTermos = tipo === "cadastro" ? false : true;
   const {
     register,
     handleSubmit,
     setError,
     clearErrors,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm<FormFields>({
     resolver: zodResolver(schemaPost),
-    defaultValues: {
-      termos: isTermos,
-    },
   });
   const navigate = useNavigate();
   const URL = import.meta.env.VITE_API_URL;
+
+  if (tipo === "cadastro") {
+    setValue("termos", false);
+  } else {
+    setValue("termos", true);
+  }
 
   async function onSubmit(data: FormFields) {
     const postData = reorganizeData(data);
@@ -178,7 +181,10 @@ function Form({ categoria, tipo }: Props) {
                 placeholder="termos"
                 {...register("termos", {})}
               />
-              Concordo com os Termos de Uso
+              Concordo com os{" "}
+              <Link className="link-no-purple" to="/termos-de-uso">
+                Termos de Uso
+              </Link>
             </label>
             {errors.termos && (
               <p className="Form__error">{errors.termos.message}</p>
