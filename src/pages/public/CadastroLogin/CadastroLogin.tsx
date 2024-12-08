@@ -60,7 +60,7 @@ function FormAcesso({ tipo }: Props) {
           )}
         </div>
         <Link
-          className="CadastroLogin__link"
+          className="CadastroLogin__link link-no-purple"
           to={"/" + (tipo === "Cadastro" ? "login" : "cadastro")}
         >
           {tipo === "Cadastro"
