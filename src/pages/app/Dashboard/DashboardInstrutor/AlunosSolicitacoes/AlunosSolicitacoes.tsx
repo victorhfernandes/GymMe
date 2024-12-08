@@ -42,7 +42,7 @@ type Props = {
 function AlunosSolicitacoes({ id, setAlunoData, setIdServico }: Props) {
   const [alunosData, setAlunosData] = useState<alunosData[]>();
   const [solicitacoes, setSolicitacoes] = useState<alunosData[]>();
-  const [isModalAnalise, setisModalAnalise] = useState(true);
+
   const [analise, setAnalise] = useState<Analise>();
   const [isModalAlert, setisModalAlert] = useState(false);
   const [modalMsg, setModalMsg] = useState("");
@@ -97,7 +97,6 @@ function AlunosSolicitacoes({ id, setAlunoData, setIdServico }: Props) {
     const mesNascimento = nascimento.getMonth();
     const diaNascimento = nascimento.getDate();
 
-    // Ajuste caso o aniversário não tenha ocorrido ainda este ano
     if (
       mesAtual < mesNascimento ||
       (mesAtual === mesNascimento && diaAtual < diaNascimento)
