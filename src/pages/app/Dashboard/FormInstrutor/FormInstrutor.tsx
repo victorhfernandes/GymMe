@@ -11,43 +11,63 @@ import "./FormInstrutor.scss";
 import { fetchUrl } from "../../../../utils/FetchUrl";
 
 const schemaPostInstrutor = z.object({
-  nm_instrutor: z.string().min(1, { message: "Escreva um nome valido!" }),
-  celular_instrutor: z.string().regex(/^\(?\d{2}\)?\s?\d{5}-?\d{4}$/, {
-    message: "Número de celular inválido!",
-  }),
-  nascimento_instrutor: z.string().date(),
-  cpf_instrutor: z.string().refine((cpf) => validarCPF(cpf), {
-    message: "CPF inválido",
-  }),
+  nm_instrutor: z
+    .string({ message: "Escreva um nome valido!" })
+    .min(1, { message: "Escreva um nome valido!" }),
+  celular_instrutor: z
+    .string({ message: "Número de celular inválido!" })
+    .regex(/^\(?\d{2}\)?\s?\d{5}-?\d{4}$/, {
+      message: "Número de celular inválido!",
+    }),
+  nascimento_instrutor: z
+    .string({ message: "Data inválida!" })
+    .date("Data inválida!"),
+  cpf_instrutor: z
+    .string({
+      message: "CPF inválido!",
+    })
+    .refine((cpf) => validarCPF(cpf), {
+      message: "CPF inválido!",
+    }),
   cref_instrutor: z
     .string()
+    .nullable()
     // .regex(/^\d{6}-G\/[A-Z]{2}$/, { message: "Número de CREF invalido" })
     .optional(),
-  especializacoes: z.array(
-    z.object({
-      value: z.number(),
-      label: z.string(),
-    })
-  ),
-  certificacoes: z.array(
-    z.object({
-      value: z.number(),
-      label: z.string(),
-    })
-  ),
-  experiencias: z.array(
-    z.object({
-      value: z.number(),
-      label: z.string(),
-    })
-  ),
-  cidades: z.array(
-    z.object({
-      value: z.number(),
-      label: z.string(),
-    })
-  ),
-  foto_perfil: z.string().optional(),
+  especializacoes: z
+    .array(
+      z.object({
+        value: z.number(),
+        label: z.string(),
+      })
+    )
+    .min(1, { message: "Obrigatorio!" }),
+  certificacoes: z
+    .array(
+      z.object({
+        value: z.number(),
+        label: z.string(),
+      }),
+      { message: "Obrigatorio!" }
+    )
+    .min(1, { message: "Obrigatorio!" }),
+  experiencias: z
+    .array(
+      z.object({
+        value: z.number(),
+        label: z.string(),
+      })
+    )
+    .min(1, { message: "Obrigatorio!" }),
+  cidades: z
+    .array(
+      z.object({
+        value: z.number(),
+        label: z.string(),
+      })
+    )
+    .min(1, { message: "Obrigatorio!" }),
+  foto_perfil: z.string().nullable().optional(),
 });
 
 type FieldInstrutor = z.infer<typeof schemaPostInstrutor>;
@@ -76,6 +96,8 @@ function FormInstrutor({ categoria, id, closeModal }: Props) {
     defaultValues: async () => fetchDefaultValues(),
   });
 
+  console.log(errors);
+
   const URL = import.meta.env.VITE_API_URL;
 
   async function fetchDefaultValues() {
@@ -98,7 +120,9 @@ function FormInstrutor({ categoria, id, closeModal }: Props) {
       cidades,
     } = data;
 
-    nascimento_instrutor = nascimento_instrutor.split("T")[0];
+    nascimento_instrutor = nascimento_instrutor
+      ? nascimento_instrutor.split("T")[0]
+      : "";
 
     const organizedData = {
       id_instrutor,

@@ -21,8 +21,8 @@ const schemaPostAluno = z.object({
   desequilibrio: z.string({ message: "Pergunta obrigatoria!" }),
   osseoArticular: z.string({ message: "Pergunta obrigatoria!" }),
   medicado: z.string({ message: "Pergunta obrigatoria!" }),
-  foto_perfil: z.string().optional(),
-  atestado: z.string().optional(),
+  foto_perfil: z.string().nullable().optional(),
+  atestado: z.string().nullable().optional(),
 });
 
 type FieldAluno = z.infer<typeof schemaPostAluno>;
@@ -126,6 +126,8 @@ function FormAluno({ categoria, id, closeModal }: Props) {
       window.location.reload();
     }
   }
+
+  console.log(errors);
 
   return (
     <>
