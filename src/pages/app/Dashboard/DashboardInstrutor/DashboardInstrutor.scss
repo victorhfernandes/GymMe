@@ -9,7 +9,7 @@
       "footer footer footer";
     @media (max-width: 80em /*1280px*/) and (min-width: 56.25em) {
       grid-template-columns: 1fr 1fr 1fr;
-      grid-template-rows: 12vh auto 1fr 12vh;
+      grid-template-rows: 12vh auto 1fr auto;
       grid-template-areas:
         "navbar navbar logout"
         "usuario usuario usuario"
@@ -18,7 +18,7 @@
     }
     @media (max-width: 56.25em) {
       grid-template-columns: 1fr 1fr;
-      grid-template-rows: 12vh auto auto 1fr 12vh;
+      grid-template-rows: 12vh auto auto 1fr auto;
       grid-template-areas:
         "navbar logout"
         "usuario usuario"

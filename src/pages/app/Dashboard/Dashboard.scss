@@ -50,8 +50,9 @@
     }
   }
   &__footer {
-    height: 12vh;
+    grid-area: footer;
     background-color: #00395bbf;
+    color: #ffffff;
   }
 }
 

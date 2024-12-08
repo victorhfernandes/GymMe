@@ -2,7 +2,7 @@
   &__containner {
     display: grid;
     grid-template-columns: 25% 65% 1fr;
-    grid-template-rows: 12vh 1fr 12vh;
+    grid-template-rows: 12vh 1fr auto;
     grid-template-areas:
       "navbar pesquisa logout"
       "usuario conteudo conteudo"
@@ -10,7 +10,7 @@
 
     @media (max-width: 80em /*1280px*/) {
       grid-template-columns: 1fr 1fr;
-      grid-template-rows: 12vh auto auto 1fr 12vh;
+      grid-template-rows: 12vh auto auto 1fr auto;
       grid-template-areas:
         "navbar logout"
         "pesquisa pesquisa"

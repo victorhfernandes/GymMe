@@ -106,7 +106,7 @@ function DashboardInstrutor({ id }: Props) {
               idServico={idServico}
             />
           )}
-          <div className="DashboardInstrutor__footer">
+          <div className="Dashboard__footer">
             <Footer />
           </div>
         </div>

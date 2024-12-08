@@ -455,7 +455,7 @@ function DashboardAluno({ id }: Props) {
               )}
             </>
           )}
-          <div className="DashboardAluno__footer">
+          <div className="Dashboard__footer">
             <Footer />
           </div>
         </div>
