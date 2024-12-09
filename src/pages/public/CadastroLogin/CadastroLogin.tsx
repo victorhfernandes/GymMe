@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Form from "./Form/Form";
 import gymmeAluno from "../../../assets/gymme-aluno.png";
 import gymmeInstrutor from "../../../assets/gymme-instrutor.png";
 import "./CadastroLogin.scss";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 type Props = {
   tipo: string;
@@ -13,6 +13,23 @@ function FormAcesso({ tipo }: Props) {
   const [categoria, setCategoria] = useState(
     sessionStorage.getItem("categoria") || "aluno"
   );
+  const URL = import.meta.env.VITE_API_URL;
+  const navigate = useNavigate();
+
+  async function isLogedIn() {
+    const fetchUrl = `${URL}/api/${categoria}/login/status`;
+    const response = await fetch(fetchUrl, {
+      method: "GET",
+      credentials: "include",
+    });
+    if (response.ok) {
+      navigate("/app/dashboard");
+    }
+  }
+
+  useEffect(() => {
+    isLogedIn();
+  }, []);
 
   return (
     <>

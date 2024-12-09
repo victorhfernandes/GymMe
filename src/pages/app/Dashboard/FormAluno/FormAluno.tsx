@@ -127,8 +127,6 @@ function FormAluno({ categoria, id, closeModal }: Props) {
     }
   }
 
-  console.log(errors);
-
   return (
     <>
       <Modal closeModal={closeModal}>

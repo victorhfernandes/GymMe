@@ -30,8 +30,9 @@ function PerfilInstrutor() {
   const [modalMsg, setModalMsg] = useState("");
   const [instrutorData, setInstrutorData] = useState<Instrutor>();
   const { idInstrutor } = useParams();
-  const idAluno = getId();
+  const [idAluno, setIdAluno] = useState<string>();
   const FIREBASE_URL = import.meta.env.VITE_FIREBASE_URL;
+  const URL = import.meta.env.VITE_API_URL;
 
   async function fetchInstrutor() {
     const data = await fetchUrl(`/api/instrutor/${idInstrutor}?compl=true`);
@@ -59,19 +60,15 @@ function PerfilInstrutor() {
     }
   }
 
-  function getId() {
-    let session = sessionStorage.getItem("authUser");
-    if (session) {
-      if (session.includes("aluno")) {
-        const parsed = JSON.parse(session);
-        return parsed.id_aluno;
-      } else {
-        const parsed = JSON.parse(session);
-        return parsed.id_instrutor;
-      }
-    } else {
-      return "Faça Login";
-    }
+  async function getIdAluno() {
+    const fetchUrl = `${URL}/api/aluno/login/status`;
+    const response = await fetch(fetchUrl, {
+      method: "GET",
+      credentials: "include",
+    });
+    const data = await response.json();
+    const stringId = String(data.id);
+    setIdAluno(stringId);
   }
 
   function getData(data: string) {
@@ -103,6 +100,7 @@ function PerfilInstrutor() {
   }
 
   useEffect(() => {
+    getIdAluno();
     fetchInstrutor();
   }, []);
 

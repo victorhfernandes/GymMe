@@ -78,6 +78,7 @@ function DashboardAluno({ id }: Props) {
     null
   );
   const FIREBASE_URL = import.meta.env.VITE_FIREBASE_URL;
+  const URL = import.meta.env.VITE_API_URL;
 
   function turnEspecializacaoInString() {
     let esp = "";
@@ -179,9 +180,15 @@ function DashboardAluno({ id }: Props) {
     }
   }
 
-  function logOut() {
-    sessionStorage.removeItem("authUser");
-    window.location.reload();
+  async function logOut() {
+    const fetchUrl = `${URL}/api/aluno/logout`;
+    const response = await fetch(fetchUrl, {
+      method: "POST",
+      credentials: "include",
+    });
+    if (response.ok) {
+      window.location.reload();
+    }
   }
 
   useEffect(() => {

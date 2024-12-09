@@ -41,6 +41,7 @@ function DashboardInstrutor({ id }: Props) {
   const [alunoData, setAlunoData] = useState<alunoData | null>(null);
   const [idServico, setIdServico] = useState(0);
   const [isModal, setIsModal] = useState(false);
+  const URL = import.meta.env.VITE_API_URL;
 
   async function fetchInstrutor() {
     const data = await fetchUrl(`/api/instrutor/${id}`);
@@ -55,9 +56,15 @@ function DashboardInstrutor({ id }: Props) {
     setIsModal(true);
   }
 
-  function logOut() {
-    sessionStorage.removeItem("authUser");
-    window.location.reload();
+  async function logOut() {
+    const fetchUrl = `${URL}/api/instrutor/logout`;
+    const response = await fetch(fetchUrl, {
+      method: "POST",
+      credentials: "include",
+    });
+    if (response.ok) {
+      window.location.reload();
+    }
   }
 
   useEffect(() => {

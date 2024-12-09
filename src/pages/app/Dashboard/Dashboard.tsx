@@ -8,11 +8,12 @@ import "./Dashboard.scss";
 
 function Dashboard() {
   const [isCadastroCompleto, setIsCadastroCompleto] = useState();
-  const id = getId();
+  const [id, setId] = useState<string>();
   const categoria = getCategoria();
   const navigate = useNavigate();
+  const URL = import.meta.env.VITE_API_URL;
 
-  async function fetchInfos() {
+  async function fetchInfos(id: string) {
     const URL = import.meta.env.VITE_API_URL;
     const response = await fetch(
       `${URL}/api/${categoria}/${id}?isCadCompl=true`
@@ -22,48 +23,46 @@ function Dashboard() {
   }
 
   function getCategoria() {
-    let session = sessionStorage.getItem("authUser");
+    let session = sessionStorage.getItem("categoria");
     if (session) {
-      if (session.includes("aluno")) {
-        return "Aluno";
-      } else {
-        return "Instrutor";
-      }
+      return session;
     } else {
       return "Faça Login";
     }
   }
 
-  function getId() {
-    let session = sessionStorage.getItem("authUser");
-    if (session) {
-      if (session.includes("aluno")) {
-        const parsed = JSON.parse(session);
-        return parsed.id_aluno;
-      } else {
-        const parsed = JSON.parse(session);
-        return parsed.id_instrutor;
-      }
+  async function getId() {
+    const fetchUrl = `${URL}/api/${categoria}/login/status`;
+    const response = await fetch(fetchUrl, {
+      method: "GET",
+      credentials: "include",
+    });
+    if (response.ok) {
+      const data = await response.json();
+      const stringId = String(data.id);
+      console.log(stringId);
+      setId(stringId);
+      fetchInfos(stringId);
     } else {
-      return "Faça Login";
+      navigate("/login");
     }
   }
 
   useEffect(() => {
-    fetchInfos();
+    getId();
     if (categoria === "Faça Login") {
       setTimeout(() => {
         navigate("/login");
-      }, 1000);
+      }, 0);
     }
   }, []);
 
   return (
     <>
-      {!(categoria === "Faça Login") ? (
+      {!(categoria === "Faça Login") && id ? (
         <>
           {!isCadastroCompleto ? (
-            categoria === "Aluno" ? (
+            categoria === "aluno" ? (
               <FormAluno categoria={categoria} id={id} closeModal={() => {}} />
             ) : (
               <FormInstrutor
@@ -72,7 +71,7 @@ function Dashboard() {
                 closeModal={() => {}}
               />
             )
-          ) : categoria === "Aluno" ? (
+          ) : categoria === "aluno" ? (
             <DashboardAluno id={id} />
           ) : (
             <DashboardInstrutor id={id} />

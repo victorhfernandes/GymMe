@@ -96,8 +96,6 @@ function FormInstrutor({ categoria, id, closeModal }: Props) {
     defaultValues: async () => fetchDefaultValues(),
   });
 
-  console.log(errors);
-
   const URL = import.meta.env.VITE_API_URL;
 
   async function fetchDefaultValues() {

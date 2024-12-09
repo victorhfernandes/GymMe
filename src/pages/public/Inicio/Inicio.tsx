@@ -7,8 +7,37 @@ import { Link } from "react-router-dom";
 
 import "./Inicio.scss";
 import Separador from "../../../components/Separator/Separador";
+import { useEffect, useState } from "react";
 
 function Inicio() {
+  const categoria = getCategoria();
+  const URL = import.meta.env.VITE_API_URL;
+  const [showDashboard, setShowDashboard] = useState(false);
+
+  function getCategoria() {
+    let session = sessionStorage.getItem("categoria");
+    if (session) {
+      return session;
+    } else {
+      return "Faça Login";
+    }
+  }
+
+  async function isLogedIn() {
+    const fetchUrl = `${URL}/api/${categoria}/login/status`;
+    const response = await fetch(fetchUrl, {
+      method: "GET",
+      credentials: "include",
+    });
+    if (response.ok) {
+      setShowDashboard(true);
+    }
+  }
+
+  useEffect(() => {
+    isLogedIn();
+  }, []);
+
   return (
     <>
       <div className="Inicio__containner">
@@ -24,7 +53,7 @@ function Inicio() {
           </div>
           <button className="Inicio__conteudo__cadastro">
             <Link to="cadastro" className="link-no-purple">
-              Cadastre-se
+              {showDashboard ? "Dashboard" : "Cadastre-se"}
             </Link>
           </button>
         </div>

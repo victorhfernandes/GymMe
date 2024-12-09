@@ -58,10 +58,11 @@ function Form({ categoria, tipo }: Props) {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
         method: "POST",
         body: JSON.stringify(postData),
       });
-      const responseJson = await response.json();
+      // const responseJson = await response.json();
 
       if (tipo === "cadastro") {
         if (response.ok) {
@@ -69,11 +70,11 @@ function Form({ categoria, tipo }: Props) {
           setModalMsg("Cadastro feito com sucesso!");
           navigate("/login");
         } else {
-          throw new Error(responseJson.message);
+          throw new Error();
         }
       } else {
         if (response.ok) {
-          sessionStorage.setItem("authUser", JSON.stringify(responseJson));
+          sessionStorage.setItem("categoria", categoria);
           navigate("/app/dashboard");
         } else {
           throw new Error("Email ou senha incorretos!");
